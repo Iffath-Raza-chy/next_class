@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/widgets/header.dart';
 import 'package:next_class/widgets/recents_alerts.dart';
 import 'package:next_class/widgets/recents_homeworks.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var now = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -36,7 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        SizedBox(height: 30.0),
+        const SizedBox(
+          height: 30.0,
+        ),
         Container(
           padding: EdgeInsets.all(9.0),
           decoration: BoxDecoration(

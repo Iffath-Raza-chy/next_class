@@ -16,7 +16,7 @@ class Header extends StatelessWidget {
             height: 70.0,
           ),
           Text(
-            "My School",
+            "Next Class",
             style: TextStyle(
               color: Colors.white,
               fontSize: 30.0,

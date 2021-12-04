@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/widgets/build_classes.dart';
 import 'package:next_class/widgets/header.dart';
+import 'package:intl/intl.dart';
 
 class ClassesScreen extends StatefulWidget {
+  const ClassesScreen({Key? key}) : super(key: key);
+
   @override
   _ClassesScreenState createState() => _ClassesScreenState();
 }
 
 class _ClassesScreenState extends State<ClassesScreen> {
+  var now = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -20,7 +24,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "Jun",
+                DateFormat('MMMM').format(now),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18.0,
@@ -31,26 +35,26 @@ class _ClassesScreenState extends State<ClassesScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("01", style: kCalendarDay),
-                  Text("02", style: kCalendarDay),
-                  Text("03", style: kCalendarDay),
+                  Text("0${now.day - 3}", style: kCalendarDay),
+                  Text("0${now.day - 2}", style: kCalendarDay),
+                  Text("0${now.day - 1}", style: kCalendarDay),
                   Text(
-                    "04",
+                    "0${now.day}",
                     style: kCalendarDay.copyWith(
                       color: Colors.white,
                       fontSize: 17.0,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text("05", style: kCalendarDay),
-                  Text("06", style: kCalendarDay),
-                  Text("07", style: kCalendarDay),
+                  Text("0${now.day + 1}", style: kCalendarDay),
+                  Text("0${now.day + 2}", style: kCalendarDay),
+                  Text("0${now.day + 3}", style: kCalendarDay),
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 130.0, top: 3.0),
+                padding: EdgeInsets.only(left: 137.0, top: 3.0),
                 child: Text(
-                  "THU",
+                  DateFormat('EEE').format(now),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 17.0,

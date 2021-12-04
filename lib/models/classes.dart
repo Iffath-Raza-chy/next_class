@@ -6,7 +6,11 @@ class Classes {
   bool isPassed = false;
   bool isHappening = false;
 
-  Classes({required this.subject, required this.type, required this.teacherName, required this.time});
+  Classes(
+      {required this.subject,
+      required this.type,
+      required this.teacherName,
+      required this.time});
 }
 
 List<Classes> classes = [
@@ -14,24 +18,24 @@ List<Classes> classes = [
     subject: "Math",
     type: "Online Class",
     teacherName: "Julie Raybon",
-    time: DateTime.parse("2020-06-04 10:30:00"),
+    time: DateTime.parse("2020-06-06 06:30:00"),
   ),
   Classes(
     subject: "Physics",
     type: "Online Class",
     teacherName: "Robert Murray",
-    time: DateTime.parse("2020-06-04 14:30:00"),
+    time: DateTime.now(),
   ),
   Classes(
     subject: "German",
     type: "Online Class",
     teacherName: "Mary Peterson",
-    time: DateTime.parse("2020-06-06 06:30:00"),
+    time: DateTime.now().add(Duration(hours: 1)),
   ),
   Classes(
     subject: "History",
     type: "Online Class",
     teacherName: "Jim Brooke",
-    time: DateTime.parse("2020-06-06 07:30:00"),
+    time: DateTime.parse("2021-12-03 20:30:00"),
   ),
 ];

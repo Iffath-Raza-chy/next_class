@@ -44,10 +44,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ),
                   Text(
-                    "GoSchool",
+                    "Next CLass",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 32.0,
+                      fontSize: 25.0,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.1,
                     ),
