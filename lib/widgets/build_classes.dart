@@ -6,6 +6,8 @@ import 'package:next_class/models/classes.dart';
 class BuildClasses extends StatelessWidget {
   final DateFormat dateFormat = DateFormat("hh:mm a");
 
+   BuildClasses({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -46,7 +48,7 @@ class BuildClasses extends StatelessWidget {
                         height: 25.0,
                         width: 40.0,
                         decoration: BoxDecoration(
-                          color: Theme.of(context).accentColor,
+                          color: Theme.of(context).secondaryHeaderColor,
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: Center(
@@ -77,8 +79,8 @@ class BuildClasses extends StatelessWidget {
                         Icon(
                           Icons.location_on,
                           color: c.isPassed
-                              ? Theme.of(context).accentColor.withOpacity(0.3)
-                              : Theme.of(context).accentColor,
+                              ? Theme.of(context).secondaryHeaderColor.withOpacity(0.3)
+                              : Theme.of(context).secondaryHeaderColor,
                           size: 20.0,
                         ),
                         SizedBox(width: 8.0),
@@ -100,8 +102,8 @@ class BuildClasses extends StatelessWidget {
                         Icon(
                           Icons.person,
                           color: c.isPassed
-                              ? Theme.of(context).accentColor.withOpacity(0.3)
-                              : Theme.of(context).accentColor,
+                              ? Theme.of(context).secondaryHeaderColor.withOpacity(0.3)
+                              : Theme.of(context).secondaryHeaderColor,
                           size: 20.0,
                         ),
                         SizedBox(width: 8.0),
@@ -148,8 +150,8 @@ class BuildClasses extends StatelessWidget {
         shape: BoxShape.circle,
         border: Border.all(
           color: c.isPassed
-              ? Theme.of(context).accentColor.withOpacity(0.3)
-              : Theme.of(context).accentColor,
+              ? Theme.of(context).secondaryHeaderColor.withOpacity(0.3)
+              : Theme.of(context).secondaryHeaderColor,
           // width: 2.0,
         ),
       ),
@@ -162,15 +164,15 @@ class BuildClasses extends StatelessWidget {
       return Icon(
         Icons.check,
         color: c.isPassed
-            ? Theme.of(context).accentColor.withOpacity(0.3)
-            : Theme.of(context).accentColor,
+            ? Theme.of(context).secondaryHeaderColor.withOpacity(0.3)
+            : Theme.of(context).secondaryHeaderColor,
         size: 15.0,
       );
     } else if (c.isHappening) {
       return Container(
         margin: EdgeInsets.all(5.0),
         decoration: BoxDecoration(
-          color: Theme.of(context).accentColor,
+          color: Theme.of(context).secondaryHeaderColor,
           shape: BoxShape.circle,
         ),
       );

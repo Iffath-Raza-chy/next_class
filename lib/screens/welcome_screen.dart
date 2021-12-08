@@ -101,7 +101,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   padding: EdgeInsets.only(left: 40.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50.0),
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).secondaryHeaderColor,
                   ),
                   child: Row(
                     children: const <Widget>[

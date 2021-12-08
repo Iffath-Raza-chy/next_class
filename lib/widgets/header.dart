@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:next_class/screens/account_page.dart';
 
 class Header extends StatelessWidget {
   const Header({Key? key}) : super(key: key);
@@ -23,10 +24,18 @@ class Header extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          CircleAvatar(
-            radius: 25.0,
-            backgroundImage: AssetImage("assets/images/profile_pic.jpg"),
-          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AccountPage()),
+              );
+            },
+            child: CircleAvatar(
+              radius: 25.0,
+              backgroundImage: AssetImage("assets/images/profile_pic.jpg"),
+            ),
+          )
         ],
       ),
     );

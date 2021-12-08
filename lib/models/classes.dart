@@ -1,3 +1,4 @@
+
 class Classes {
   final String subject;
   final String type;
@@ -11,9 +12,11 @@ class Classes {
       required this.type,
       required this.teacherName,
       required this.time});
+      
 }
 
 List<Classes> classes = [
+  
   Classes(
     subject: "Math",
     type: "Online Class",

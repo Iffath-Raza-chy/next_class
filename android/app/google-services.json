@@ -1,20 +1,30 @@
 {
     "project_info": {
         "project_number": "734465337944",
+        "firebase_url": "https://next-class-p300-default-rtdb.firebaseio.com",
         "project_id": "next-class-p300",
         "storage_bucket": "next-class-p300.appspot.com"
     },
     "client": [{
         "client_info": {
-            "mobilesdk_app_id": "1:734465337944:android:55907d3774b3f4fa9db82d",
+            "mobilesdk_app_id": "1:734465337944:android:f35389ccbdb01dc09db82d",
             "android_client_info": {
                 "package_name": "com.example.next_class"
             }
         },
         "oauth_client": [{
-            "client_id": "734465337944-qsel2ntkfha7nf4c67ao1jgu60i95nvq.apps.googleusercontent.com",
-            "client_type": 3
-        }],
+                "client_id": "734465337944-glorlr1f3g534edpssgiphslko5nfqtv.apps.googleusercontent.com",
+                "client_type": 1,
+                "android_info": {
+                    "package_name": "com.example.next_class",
+                    "certificate_hash": "17977011bbb395e59ae5a37d75572073559f8e96"
+                }
+            },
+            {
+                "client_id": "734465337944-qsel2ntkfha7nf4c67ao1jgu60i95nvq.apps.googleusercontent.com",
+                "client_type": 3
+            }
+        ],
         "api_key": [{
             "current_key": "AIzaSyCHCiVtNY6EqpSKjFlkyaCH5c6nTtHNVvU"
         }],

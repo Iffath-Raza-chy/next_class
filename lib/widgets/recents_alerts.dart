@@ -28,7 +28,7 @@ class RecentsAlerts extends StatelessWidget {
               height: 130.0,
               width: 15.0,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
+                color: Theme.of(context).secondaryHeaderColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30.0),
                   bottomLeft: Radius.circular(30.0),
@@ -64,7 +64,7 @@ class RecentsAlerts extends StatelessWidget {
                         children: <Widget>[
                           Icon(
                             AntDesign.clockcircle,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).secondaryHeaderColor,
                             size: 17.0,
                           ),
                           SizedBox(width: 10.0),
@@ -82,7 +82,7 @@ class RecentsAlerts extends StatelessWidget {
                         children: <Widget>[
                           Icon(
                             Icons.receipt,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).secondaryHeaderColor,
                             size: 17.0,
                           ),
                           SizedBox(width: 10.0),

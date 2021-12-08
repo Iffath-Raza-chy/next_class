@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:next_class/constants.dart';
-import 'package:next_class/models/homework.dart';
+import 'package:next_class/screens/account_page.dart';
 import 'package:next_class/screens/classes_screen.dart';
 import 'package:next_class/screens/home_screen.dart';
 import 'package:next_class/screens/login_page.dart';
 import 'package:next_class/screens/home_work.dart';
-import 'package:next_class/screens/login_form_page.dart';
+import 'package:next_class/screens/test_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({Key? key}) : super(key: key);
@@ -20,8 +20,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   late Widget _currentPage;
   late List<Widget> _pages;
   late HomeScreen _homeScreen;
-  late LoginPage _loginPage;
-  late LoginFormPage _loginFormPage;
+  late TestScreen _testScreen;
   late HomeWork _homeWork;
   late ClassesScreen _classesScreen;
 
@@ -31,15 +30,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
     _homeScreen = HomeScreen();
     _classesScreen = ClassesScreen();
     _homeWork = HomeWork();
-    _loginPage = LoginPage();
-    _loginFormPage = LoginFormPage();
-    _pages = [
-      _homeScreen,
-      _classesScreen,
-      _loginFormPage,
-      _loginPage,
-      _homeWork,
-    ];
+    _testScreen = TestScreen();
+    _pages = [_homeScreen, _classesScreen, _homeWork, _testScreen];
     _currentPage = _homeScreen;
   }
 
@@ -71,16 +63,18 @@ class _BottomNavigationState extends State<BottomNavigation> {
           backgroundColor: Theme.of(context).backgroundColor,
           currentIndex: _selectedTab,
           onTap: (int index) {
-            setState(() {
-              _selectedTab = index;
-              if (index == 0 || index == 1) {
-                _currentPage = _pages[index];
-              } else if (index == 2) {
-                _currentPage = _pages[index];
-              } else if (index == 3) {
-                _currentPage = _pages[index];
-              }
-            });
+            setState(
+              () {
+                _selectedTab = index;
+                if (index == 0 || index == 1) {
+                  _currentPage = _pages[index];
+                } else if (index == 2) {
+                  _currentPage = _pages[index];
+                } else if (index == 3) {
+                  _currentPage = _pages[index];
+                }
+              },
+            );
           },
           items: [
             BottomNavigationBarItem(
@@ -88,7 +82,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 "assets/icons/house.svg",
                 width: 35.0,
                 color: _selectedTab == 0
-                    ? Theme.of(context).accentColor
+                    ? Theme.of(context).secondaryHeaderColor
                     : kTextColor,
               ),
               title: SizedBox.shrink(),
@@ -98,7 +92,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 "assets/icons/read_book.svg",
                 width: 35.0,
                 color: _selectedTab == 1
-                    ? Theme.of(context).accentColor
+                    ? Theme.of(context).secondaryHeaderColor
                     : kTextColor,
               ),
               title: SizedBox.shrink(),
@@ -108,7 +102,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 "assets/icons/homework.svg",
                 width: 35.0,
                 color: _selectedTab == 2
-                    ? Theme.of(context).accentColor
+                    ? Theme.of(context).secondaryHeaderColor
                     : kTextColor,
               ),
               title: SizedBox.shrink(),
@@ -118,7 +112,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 "assets/icons/comment.svg",
                 width: 35.0,
                 color: _selectedTab == 3
-                    ? Theme.of(context).accentColor
+                    ? Theme.of(context).secondaryHeaderColor
                     : kTextColor,
               ),
               title: SizedBox.shrink(),

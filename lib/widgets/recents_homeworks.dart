@@ -49,7 +49,7 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
                         children: <Widget>[
                           Icon(
                             AntDesign.clockcircle,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).secondaryHeaderColor,
                             size: 17.0,
                           ),
                           SizedBox(width: 10.0),
@@ -83,10 +83,11 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
         });
       },
       shape: CircleBorder(
-        side: BorderSide(color: Theme.of(context).accentColor),
+        side: BorderSide(color: Theme.of(context).secondaryHeaderColor),
       ),
-      color:
-          homework.isDone ? Theme.of(context).accentColor : Colors.transparent,
+      color: homework.isDone
+          ? Theme.of(context).secondaryHeaderColor
+          : Colors.transparent,
       child: homework.isDone ? Icon(Icons.check, color: Colors.white) : null,
     );
   }
