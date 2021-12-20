@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:next_class/constants.dart';
-import 'package:next_class/screens/account_page.dart';
 import 'package:next_class/screens/classes_screen.dart';
 import 'package:next_class/screens/home_screen.dart';
-import 'package:next_class/screens/login_page.dart';
 import 'package:next_class/screens/home_work.dart';
 import 'package:next_class/screens/test_screen.dart';
 

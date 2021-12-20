@@ -90,6 +90,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               right: 100.0,
               child: GestureDetector(
                 onTap: () {
+                  Navigator.of(context).pop(false);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => BottomNavigation()),

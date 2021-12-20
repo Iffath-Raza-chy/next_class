@@ -1,11 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:next_class/screens/forgot_password.dart';
-import 'package:next_class/user/profile.dart';
+import 'package:next_class/screens/home_screen.dart';
+import 'package:next_class/screens/profile.dart';
+import 'package:next_class/widgets/bottom_navigation.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -23,11 +26,38 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  userLogin() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => Profile()),
-    );
+  userLogin() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Profile()),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print("No User Found ");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text(
+              "User Not Found",
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+        );
+      } else if (e.code == 'wrong-password') {
+        print("Wrong Password");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text("Wrong Password"),
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -40,96 +70,213 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-          child: ListView(
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                child: TextFormField(
-                  autofocus: false,
-                  decoration: InputDecoration(
-                    labelText: 'Email: ',
-                    labelStyle: TextStyle(fontSize: 20.0),
-                    border: OutlineInputBorder(),
-                    errorStyle: TextStyle(
-                      color: Colors.redAccent,
-                      fontSize: 15,
-                    ),
-                  ),
-                  controller: emailController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Entere Email';
-                    } else if (!value.contains('@')) {
-                      return 'Please Enter Valid Email';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                child: TextFormField(
-                  autofocus: false,
-                  decoration: InputDecoration(
-                    labelText: 'Password: ',
-                    labelStyle: TextStyle(fontSize: 20.0),
-                    border: OutlineInputBorder(),
-                    errorStyle: TextStyle(
-                      color: Colors.redAccent,
-                      fontSize: 15,
-                    ),
-                  ),
-                  controller: passwordController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please Entere Password';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 60),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          setState(
-                            () {
-                              email = emailController.text;
-                              password = passwordController.text;
-                            },
-                          );
-                          userLogin();
-                        }
-                      },
-                      child: Text(
-                        'Login',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ForgotPassword()),
-                        ),
-                      },
-                      child: Text('Forgot Password?'),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+      backgroundColor: Theme.of(context).backgroundColor,
+      appBar: AppBar(
+        title: Center(
+          child: Text(
+            "Next Class",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
+        backgroundColor: Theme.of(context).secondaryHeaderColor,
+        elevation: 1,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (cpmtext) => BottomNavigation()));
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: ListView(
+        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+        children: [
+          Text(
+            "User Login",
+            style: TextStyle(
+                fontSize: 25, fontWeight: FontWeight.w500, color: Colors.white),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Center(
+            child: Stack(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: 130,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 4,
+                        color: Theme.of(context).secondaryHeaderColor),
+                    boxShadow: [
+                      BoxShadow(
+                        spreadRadius: 2,
+                        blurRadius: 10,
+                        color: Colors.white.withOpacity(0.1),
+                        offset: Offset(0, 10),
+                      ),
+                    ],
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage("assets/icons/LoginIcon.png"),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  padding: EdgeInsets.all(8),
+                  height: 60,
+                  child: TextFormField(
+                    autofocus: false,
+                    decoration: InputDecoration(
+                      hintText: 'Email: ',
+                      errorStyle: TextStyle(
+                        color: Colors.redAccent,
+                        fontSize: 10,
+                      ),
+                    ),
+                    controller: emailController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.redAccent,
+                            content: Text(
+                              "Please Enter Email",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        );
+                      } else if (!RegExp(
+                              "^[a-zA-z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                          .hasMatch(value)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.redAccent,
+                            content: Text(
+                              "Please Enter Valid Email",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        );
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  padding: EdgeInsets.all(8),
+                  height: 60,
+                  child: TextFormField(
+                    autofocus: false,
+                    decoration: InputDecoration(
+                      hintText: 'Password: ',
+                      errorStyle: TextStyle(
+                        color: Colors.redAccent,
+                        fontSize: 10,
+                      ),
+                    ),
+                    controller: passwordController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.redAccent,
+                            content: Text(
+                              "Please Enter Password",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        );
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 60),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).secondaryHeaderColor),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            setState(
+                              () {
+                                email = emailController.text;
+                                password = passwordController.text;
+                              },
+                            );
+                            userLogin();
+                          }
+                        },
+                        child: Text(
+                          'Login',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ForgotPassword()),
+                          ),
+                        },
+                        child: Text(
+                          'Forgot Password?',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

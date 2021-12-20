@@ -6,7 +6,7 @@ import 'package:next_class/models/classes.dart';
 class BuildClasses extends StatelessWidget {
   final DateFormat dateFormat = DateFormat("hh:mm a");
 
-   BuildClasses({Key? key}) : super(key: key);
+  BuildClasses({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,9 @@ class BuildClasses extends StatelessWidget {
                         Icon(
                           Icons.location_on,
                           color: c.isPassed
-                              ? Theme.of(context).secondaryHeaderColor.withOpacity(0.3)
+                              ? Theme.of(context)
+                                  .secondaryHeaderColor
+                                  .withOpacity(0.3)
                               : Theme.of(context).secondaryHeaderColor,
                           size: 20.0,
                         ),
@@ -102,7 +104,9 @@ class BuildClasses extends StatelessWidget {
                         Icon(
                           Icons.person,
                           color: c.isPassed
-                              ? Theme.of(context).secondaryHeaderColor.withOpacity(0.3)
+                              ? Theme.of(context)
+                                  .secondaryHeaderColor
+                                  .withOpacity(0.3)
                               : Theme.of(context).secondaryHeaderColor,
                           size: 20.0,
                         ),

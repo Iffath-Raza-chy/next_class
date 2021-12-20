@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:next_class/screens/account_page.dart';
 import 'package:next_class/screens/login_page.dart';
-import 'package:next_class/widgets/header.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -27,29 +25,58 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
+      appBar: AppBar(
+        title: Center(
+          child: Text(
+            "Next Class",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+        ),
+        backgroundColor: Theme.of(context).secondaryHeaderColor,
+        elevation: 1,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop(true);
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
+            onPressed: () {},
+          ),
+        ],
+      ),
       body: Column(
         children: [
-          Header(),
           SizedBox(
             height: 300,
             child: Expanded(
-              child: Container(
-                color: Colors.white,
-                height: 50,
-                child: Form(
-                  key: _formKey,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                    child: ListView(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                  child: ListView(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          padding: EdgeInsets.all(8),
+                          height: 60,
                           child: TextFormField(
                             autofocus: false,
                             decoration: InputDecoration(
-                              labelText: 'Email',
-                              labelStyle: TextStyle(fontSize: 20),
-                              border: OutlineInputBorder(),
+                              hintText: 'Email',
                               errorStyle: TextStyle(
                                 color: Colors.redAccent,
                                 fontSize: 15,
@@ -66,48 +93,57 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             },
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(5, 5, 0, 10),
-                          child: Text(
-                            'A Reset Link will be sent to your email id !',
-                            style: TextStyle(fontSize: 14),
-                          ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(5, 5, 0, 10),
+                        child: Text(
+                          'A Reset Link will be sent to your email id !',
+                          style: TextStyle(fontSize: 14, color: Colors.white),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 60),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    email = emailController.text;
-                                  }
-                                },
-                                child: Text(
-                                  'Send Email',
-                                  style: TextStyle(fontSize: 18),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 60),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary:
+                                      Theme.of(context).secondaryHeaderColor),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  email = emailController.text;
+                                }
+                              },
+                              child: Text(
+                                'Send Email',
+                                style: TextStyle(
+                                  fontSize: 18,
                                 ),
                               ),
-                              TextButton(
-                                onPressed: () => {
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      PageRouteBuilder(
-                                        pageBuilder: (context, a, b) =>
-                                            AccountPage(),
-                                        transitionDuration:
-                                            Duration(seconds: 0),
-                                      ),
-                                      (route) => false)
-                                },
-                                child: Text('Login'),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                            ),
+                            TextButton(
+                              onPressed: () => {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, a, b) =>
+                                          LoginPage(),
+                                      transitionDuration: Duration(seconds: 0),
+                                    ),
+                                    (route) => false)
+                              },
+                              child: Text(
+                                'Login',
+                                style: TextStyle(
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
