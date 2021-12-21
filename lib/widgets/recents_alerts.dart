@@ -22,6 +22,7 @@ class RecentsAlerts extends StatelessWidget {
         double percent = hoursLeft / 48;
 
         return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(bottom: 30.0),
@@ -39,7 +40,7 @@ class RecentsAlerts extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 30.0),
               padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
               height: 130.0,
-              width: 326.0,
+              width: 350.0,
               decoration: BoxDecoration(
                 color: kCardColor,
                 borderRadius: BorderRadius.only(

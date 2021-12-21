@@ -1,12 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-FirebaseFirestore firestore = FirebaseFirestore.instance;
-final Stream<QuerySnapshot> studentsStream =
-    FirebaseFirestore.instance.collection('classes').snapshots();
-Stream collectionStream =
-    FirebaseFirestore.instance.collection('classes').snapshots();
-Stream documentStream =
-    FirebaseFirestore.instance.collection('classes').doc('1').snapshots();
 
 class Classes {
   final String subject;

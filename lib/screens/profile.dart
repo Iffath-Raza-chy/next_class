@@ -24,7 +24,7 @@ class _ProfileState extends State<Profile> {
         .doc(user!.uid)
         .get()
         .then((value) {
-      this.logedInUser = UserModel.fromMap(value.data());
+      logedInUser = UserModel.fromMap(value.data());
       setState(() {});
     });
   }

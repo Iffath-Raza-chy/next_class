@@ -34,26 +34,25 @@ class _ClassesScreenState extends State<ClassesScreen> {
               ),
               SizedBox(height: 10.0),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text("0${now.day - 3}", style: kCalendarDay),
-                  Text("0${now.day - 2}", style: kCalendarDay),
-                  Text("0${now.day - 1}", style: kCalendarDay),
+                  Text("${now.day - 3}", style: kCalendarDay),
+                  Text("${now.day - 2}", style: kCalendarDay),
+                  Text("${now.day - 1}", style: kCalendarDay),
                   Text(
-                    "0${now.day}",
+                    "${now.day}",
                     style: kCalendarDay.copyWith(
                       color: Colors.white,
                       fontSize: 17.0,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text("0${now.day + 1}", style: kCalendarDay),
-                  Text("0${now.day + 2}", style: kCalendarDay),
-                  Text("0${now.day + 3}", style: kCalendarDay),
+                  Text("${now.day + 1}", style: kCalendarDay),
+                  Text("${now.day + 2}", style: kCalendarDay),
+                  Text("${now.day + 3}", style: kCalendarDay),
                 ],
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 137.0, top: 3.0),
+              Center(
                 child: Text(
                   DateFormat('EEE').format(now),
                   style: TextStyle(
@@ -76,7 +75,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
             ),
           ),
           child: Column(
-            children: <Widget>[
+            children: const <Widget>[
               BuildClasses2(),
             ],
           ),

@@ -19,12 +19,13 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
       itemBuilder: (BuildContext context, int index) {
         Homework homework = recentHomeworks[index];
         return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(bottom: 30.0),
               padding: EdgeInsets.fromLTRB(20.0, 20.0, 10.0, 10.0),
               height: 100.0,
-              width: 341.0,
+              width: 350.0,
               decoration: BoxDecoration(
                 color: kCardColor,
                 borderRadius: BorderRadius.circular(12.0),
