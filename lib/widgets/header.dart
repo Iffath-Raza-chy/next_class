@@ -26,7 +26,7 @@ class Header extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               if (FirebaseAuth.instance.currentUser == null) {
                 Navigator.push(

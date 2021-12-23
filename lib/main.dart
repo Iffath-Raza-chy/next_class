@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:next_class/screens/welcome_screen.dart';
-import 'dart:ffi';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
       future: _initialization,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          print("Something Went Wrong");
+          return Text('Something went Wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
@@ -41,7 +40,6 @@ class MyApp extends StatelessWidget {
               future: _initialization,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  print('You Have an error ${snapshot.error.toString()}');
                   return Text('Something went Wrong');
                 } else if (snapshot.hasData) {
                   return WelcomeScreen();

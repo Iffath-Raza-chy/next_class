@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:next_class/constants.dart';
-import 'package:next_class/widgets/build_classes.dart';
 import 'package:next_class/widgets/build_classes2.dart';
 import 'package:next_class/widgets/header.dart';
 import 'package:intl/intl.dart';
@@ -24,21 +23,39 @@ class _ClassesScreenState extends State<ClassesScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                DateFormat('MMMM').format(now),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    DateFormat('MMMM').format(now),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    DateFormat('EEEE').format(now),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: 10.0),
+              SizedBox(
+                height: 15,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text("${now.day - 3}", style: kCalendarDay),
-                  Text("${now.day - 2}", style: kCalendarDay),
-                  Text("${now.day - 1}", style: kCalendarDay),
+                  Text(DateFormat('dd').format(now.subtract(Duration(days: 3))),
+                      style: kCalendarDay),
+                  Text(DateFormat('dd').format(now.subtract(Duration(days: 2))),
+                      style: kCalendarDay),
+                  Text(DateFormat('dd').format(now.subtract(Duration(days: 1))),
+                      style: kCalendarDay),
                   Text(
                     "${now.day}",
                     style: kCalendarDay.copyWith(
@@ -47,20 +64,13 @@ class _ClassesScreenState extends State<ClassesScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text("${now.day + 1}", style: kCalendarDay),
-                  Text("${now.day + 2}", style: kCalendarDay),
-                  Text("${now.day + 3}", style: kCalendarDay),
+                  Text(DateFormat('dd').format(now.add(Duration(days: 1))),
+                      style: kCalendarDay),
+                  Text(DateFormat('dd').format(now.add(Duration(days: 2))),
+                      style: kCalendarDay),
+                  Text(DateFormat('dd').format(now.add(Duration(days: 3))),
+                      style: kCalendarDay),
                 ],
-              ),
-              Center(
-                child: Text(
-                  DateFormat('EEE').format(now),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 17.0,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
               ),
             ],
           ),

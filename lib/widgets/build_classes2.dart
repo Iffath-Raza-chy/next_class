@@ -5,16 +5,41 @@ import 'package:intl/intl.dart';
 
 class BuildClasses2 extends StatefulWidget {
   const BuildClasses2({Key? key}) : super(key: key);
-
   @override
   _BuildClasses2State createState() => _BuildClasses2State();
 }
 
+String dayname() {
+  var sunday = 'snday';
+  var monday = 'monday';
+  var tuesday = 'tuesday';
+  var wednesday = 'wednesday';
+  var thursday = 'thursday';
+  var friday = 'friday';
+  var saturday = 'saturday';
+  if (DateTime.now().weekday.toInt() == 1) {
+    return monday;
+  } else if (DateTime.now().weekday == 2) {
+    return tuesday;
+  } else if (DateTime.now().weekday == 3) {
+    return wednesday;
+  } else if (DateTime.now().weekday == 4) {
+    return thursday;
+  } else if (DateTime.now().weekday == 5) {
+    return friday;
+  } else if (DateTime.now().weekday == 6) {
+    return saturday;
+  } else {
+    return sunday;
+  }
+}
+
 class _BuildClasses2State extends State<BuildClasses2> {
-  final Stream<QuerySnapshot> classStream =
-      FirebaseFirestore.instance.collection('monday').snapshots();
-  final CollectionReference collectionReference =
-      FirebaseFirestore.instance.collection('monday');
+  final Stream<QuerySnapshot> classStream = FirebaseFirestore.instance
+      .collection(dayname())
+      .orderBy('time')
+      .snapshots();
+
   late DateFormat dateFormat = DateFormat("hh:mm a");
   bool se = true;
   var now = DateTime.now();
@@ -24,7 +49,7 @@ class _BuildClasses2State extends State<BuildClasses2> {
       stream: classStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          print('Something Went Wrong');
+          Error();
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -41,12 +66,48 @@ class _BuildClasses2State extends State<BuildClasses2> {
           shrinkWrap: true,
           itemCount: storedocs.length,
           itemBuilder: (BuildContext context, int index) {
-            var classtime = DateTime.parse(storedocs[index]['time']);
-            // if (classtime.compareTo(now) > 0) {
-            //   collectionReference
-            //       .doc(storedocs[index]['ispassed'])
-            //       .update({'ispassed': 'true'});
-            // }
+            var dateWOtime = DateFormat('yyyy-MM-dd').format(DateTime.now());
+            var dateWtime = storedocs[index]['time'].toString();
+            var finaltime = dateWOtime + " " + dateWtime + ":00";
+            var classtime = DateTime.parse(finaltime);
+            var startTime = DateTime.parse(finaltime);
+            var addedtime = startTime
+                .add(Duration(
+                    hours: storedocs[index]['timehour'],
+                    minutes: storedocs[index]['timeminute']))
+                .toString();
+            var endTime = DateTime.parse(addedtime);
+
+            final currentTime = DateTime.now();
+            // List<String> str = [];
+            // FirebaseFirestore.instance
+            //     .collection(dayname())
+            //     .orderBy('time')
+            //     .get()
+            //     .then((QuerySnapshot querySnapshot) {
+            //   for (var doc in querySnapshot.docs) {
+            //     str.add(doc.id.toString());
+            //   }
+            // });
+            ishappening() {
+              if (currentTime.isAfter(startTime) &&
+                  currentTime.isBefore(endTime)) {
+                {
+                  return true;
+                }
+              } else {
+                return false;
+              }
+            }
+
+            ispassed() {
+              if (currentTime.isBefore(endTime)) {
+                return false;
+              } else {
+                return true;
+              }
+            }
+
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
@@ -56,7 +117,7 @@ class _BuildClasses2State extends State<BuildClasses2> {
                     Text(
                       dateFormat.format(classtime).toString(),
                       style: TextStyle(
-                        color: storedocs[index]['ispass'] == 1
+                        color: ispassed()
                             ? Colors.white.withOpacity(0.2)
                             : Colors.white,
                         fontSize: 18.0,
@@ -71,7 +132,7 @@ class _BuildClasses2State extends State<BuildClasses2> {
                       child: Text(
                         storedocs[index]['sub'],
                         style: TextStyle(
-                          color: storedocs[index]['ispassed']
+                          color: ispassed()
                               ? Colors.white.withOpacity(0.2)
                               : Colors.white,
                           fontSize: 18.0,
@@ -82,7 +143,7 @@ class _BuildClasses2State extends State<BuildClasses2> {
                     SizedBox(width: 20.0),
                     // c.isHappening
                     //     ?
-                    storedocs[index]['ishappening']
+                    ishappening()
                         ? Container(
                             height: 25.0,
                             width: 40.0,
@@ -108,9 +169,8 @@ class _BuildClasses2State extends State<BuildClasses2> {
                       margin: EdgeInsets.only(left: 117.0, bottom: 20.0),
                       width: 2,
                       height: 100.0,
-                      color: storedocs[index]['ispassed']
-                          ? kTextColor.withOpacity(0.3)
-                          : kTextColor,
+                      color:
+                          ispassed() ? kTextColor.withOpacity(0.3) : kTextColor,
                     ),
                     SizedBox(width: 28.0),
                     Column(
@@ -120,7 +180,7 @@ class _BuildClasses2State extends State<BuildClasses2> {
                           children: <Widget>[
                             Icon(
                               Icons.location_on,
-                              color: storedocs[index]['ispassed']
+                              color: ispassed()
                                   ? Theme.of(context)
                                       .secondaryHeaderColor
                                       .withOpacity(0.3)
@@ -131,7 +191,7 @@ class _BuildClasses2State extends State<BuildClasses2> {
                             Text(
                               storedocs[index]['type'],
                               style: TextStyle(
-                                color: storedocs[index]['ispassed']
+                                color: ispassed()
                                     ? kTextColor.withOpacity(0.3)
                                     : kTextColor,
                                 fontSize: 15.0,
@@ -142,10 +202,11 @@ class _BuildClasses2State extends State<BuildClasses2> {
                         ),
                         SizedBox(height: 6.0),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Icon(
                               Icons.person,
-                              color: storedocs[index]['ispassed']
+                              color: ispassed()
                                   ? Theme.of(context)
                                       .secondaryHeaderColor
                                       .withOpacity(0.3)
@@ -156,7 +217,7 @@ class _BuildClasses2State extends State<BuildClasses2> {
                             Text(
                               storedocs[index]['teacher'],
                               style: TextStyle(
-                                color: storedocs[index]['ispassed']
+                                color: ispassed()
                                     ? kTextColor.withOpacity(0.3)
                                     : kTextColor,
                                 fontSize: 15.0,

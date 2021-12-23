@@ -1,12 +1,6 @@
-import 'dart:ffi';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:next_class/screens/forgot_password.dart';
-import 'package:next_class/screens/home_screen.dart';
 import 'package:next_class/screens/profile.dart';
 import 'package:next_class/widgets/bottom_navigation.dart';
 
@@ -38,7 +32,6 @@ class _LoginPageState extends State<LoginPage> {
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print("No User Found ");
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.redAccent,
@@ -49,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
       } else if (e.code == 'wrong-password') {
-        print("Wrong Password");
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.redAccent,

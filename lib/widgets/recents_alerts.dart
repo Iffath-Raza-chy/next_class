@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_icons/flutter_icons.dart'; 
 import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/models/alert.dart';
@@ -38,9 +38,9 @@ class RecentsAlerts extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(bottom: 30.0),
-              padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+              padding: EdgeInsets.fromLTRB(20.0, 20.0, 10.0, 10.0),
               height: 130.0,
-              width: 350.0,
+              width: 310.0,
               decoration: BoxDecoration(
                 color: kCardColor,
                 borderRadius: BorderRadius.only(

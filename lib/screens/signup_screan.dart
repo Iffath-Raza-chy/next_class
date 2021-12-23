@@ -37,10 +37,10 @@ class _AddStudentPageState extends State<AddStudentPage> {
           {'id': id, 'password': password},
         )
         .then(
-          (value) => print('User Added'),
+          (value) => Text('User Added'),
         )
         .catchError(
-          (error) => print('Failed to Add user: $error'),
+          (error) => Text('Failed to Add user: $error'),
         );
   }
 
@@ -97,38 +97,36 @@ class _AddStudentPageState extends State<AddStudentPage> {
                   },
                 ),
               ),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          setState(
-                            () {
-                              id = idController.text;
-                              password = passwordController.text;
-                              addUser();
-                              clearText();
-                            },
-                          );
-                        }
-                      },
-                      child: const Text(
-                        'Register',
-                        style: TextStyle(fontSize: 18),
-                      ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        setState(
+                          () {
+                            id = idController.text;
+                            password = passwordController.text;
+                            addUser();
+                            clearText();
+                          },
+                        );
+                      }
+                    },
+                    child: const Text(
+                      'Register',
+                      style: TextStyle(fontSize: 18),
                     ),
-                    ElevatedButton(
-                      onPressed: () => {clearText()},
-                      child: const Text(
-                        'Reset',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
-                    )
-                  ],
-                ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => {clearText()},
+                    child: const Text(
+                      'Reset',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
+                  )
+                ],
               )
             ],
           ),

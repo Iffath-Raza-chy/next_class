@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/widgets/header.dart';
