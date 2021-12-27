@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:next_class/constants.dart';
+import 'package:next_class/widgets/assignment.dart';
 import 'package:next_class/widgets/header.dart';
-import 'package:next_class/widgets/recents_alerts.dart';
-import 'package:next_class/widgets/recents_homeworks.dart';
+import 'package:next_class/widgets/examination.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,7 +12,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var now = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Builder(
@@ -41,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(
-              height: 30.0,
+              height: 33.0,
             ),
             Container(
               padding: EdgeInsets.all(9.0),
@@ -50,52 +48,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(50.0),
                   topRight: Radius.circular(50.0),
+                  bottomLeft: Radius.circular(50.0),
+                  bottomRight: Radius.circular(50.0),
                 ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Recent Alerts",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 30.0),
+                children: const <Widget>[
                   IgnorePointer(
-                    child: RecentsAlerts(),
+                    child: HomeWorkwdg(),
                   ),
-                  Center(
-                    child: Text(
-                      "View all",
-                      style: TextStyle(
-                          color: Theme.of(context).secondaryHeaderColor,
-                          fontSize: 15.0),
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  Text(
-                    "Recent Homework",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 30.0),
-                  IgnorePointer(
-                    child: RecentHomeworks(),
-                  ),
-                  Center(
-                    child: Text(
-                      "View all",
-                      style: TextStyle(
-                          color: Theme.of(context).secondaryHeaderColor,
-                          fontSize: 15.0),
-                    ),
-                  ),
+                  Assignment(),
                   SizedBox(height: 60.0),
                 ],
               ),

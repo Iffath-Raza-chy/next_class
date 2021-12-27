@@ -35,6 +35,11 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    now = DateTime.now();
+    gCounter = now.weekday.toInt();
+    gCounter2 = now.weekday.toInt();
+
+    ccnt = 0;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(
@@ -58,7 +63,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         ),
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Colors.blueGrey[900],
           currentIndex: _selectedTab,
           onTap: (int index) {
             setState(

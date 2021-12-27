@@ -214,7 +214,7 @@ class _ProfileState extends State<Profile> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => AdminPanel()));
               },
-              child: Text("AdminPanel"))
+              child: Text("AdminPanel")),
         ],
       ),
       backgroundColor: Theme.of(context).backgroundColor,

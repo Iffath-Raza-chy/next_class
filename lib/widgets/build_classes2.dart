@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:next_class/constants.dart';
 import 'package:intl/intl.dart';
@@ -9,25 +10,25 @@ class BuildClasses2 extends StatefulWidget {
   _BuildClasses2State createState() => _BuildClasses2State();
 }
 
-String dayname() {
-  var sunday = 'snday';
-  var monday = 'monday';
-  var tuesday = 'tuesday';
-  var wednesday = 'wednesday';
-  var thursday = 'thursday';
-  var friday = 'friday';
-  var saturday = 'saturday';
-  if (DateTime.now().weekday.toInt() == 1) {
+String dayname(int a) {
+  var sunday = 'Sunday';
+  var monday = 'Monday';
+  var tuesday = 'Tuesday';
+  var wednesday = 'Wednesday';
+  var thursday = 'Thursday';
+  var friday = 'Friday';
+  var saturday = 'Saturday';
+  if (a == 1) {
     return monday;
-  } else if (DateTime.now().weekday == 2) {
+  } else if (a == 2) {
     return tuesday;
-  } else if (DateTime.now().weekday == 3) {
+  } else if (a == 3) {
     return wednesday;
-  } else if (DateTime.now().weekday == 4) {
+  } else if (a == 4) {
     return thursday;
-  } else if (DateTime.now().weekday == 5) {
+  } else if (a == 5) {
     return friday;
-  } else if (DateTime.now().weekday == 6) {
+  } else if (a == 6) {
     return saturday;
   } else {
     return sunday;
@@ -35,14 +36,13 @@ String dayname() {
 }
 
 class _BuildClasses2State extends State<BuildClasses2> {
+  DatabaseReference scoresRef = FirebaseDatabase.instance.reference();
+
   final Stream<QuerySnapshot> classStream = FirebaseFirestore.instance
-      .collection(dayname())
+      .collection(dayname(gCounter).toLowerCase())
       .orderBy('time')
       .snapshots();
 
-  late DateFormat dateFormat = DateFormat("hh:mm a");
-  bool se = true;
-  var now = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -56,17 +56,19 @@ class _BuildClasses2State extends State<BuildClasses2> {
             child: CircularProgressIndicator(),
           );
         }
+
         final List storedocs = [];
         snapshot.data!.docs.map((DocumentSnapshot document) {
           Map a = document.data() as Map<String, dynamic>;
           storedocs.add(a);
         }).toList();
+
         return ListView.builder(
           physics: BouncingScrollPhysics(),
           shrinkWrap: true,
           itemCount: storedocs.length,
           itemBuilder: (BuildContext context, int index) {
-            var dateWOtime = DateFormat('yyyy-MM-dd').format(DateTime.now());
+            var dateWOtime = DateFormat('yyyy-MM-dd').format(now);
             var dateWtime = storedocs[index]['time'].toString();
             var finaltime = dateWOtime + " " + dateWtime + ":00";
             var classtime = DateTime.parse(finaltime);
@@ -78,20 +80,12 @@ class _BuildClasses2State extends State<BuildClasses2> {
                 .toString();
             var endTime = DateTime.parse(addedtime);
 
-            final currentTime = DateTime.now();
-            // List<String> str = [];
-            // FirebaseFirestore.instance
-            //     .collection(dayname())
-            //     .orderBy('time')
-            //     .get()
-            //     .then((QuerySnapshot querySnapshot) {
-            //   for (var doc in querySnapshot.docs) {
-            //     str.add(doc.id.toString());
-            //   }
-            // });
+            final currentTime = now;
+
             ishappening() {
               if (currentTime.isAfter(startTime) &&
-                  currentTime.isBefore(endTime)) {
+                  currentTime.isBefore(endTime) &&
+                  gCounter == classtime.weekday) {
                 {
                   return true;
                 }
@@ -101,7 +95,8 @@ class _BuildClasses2State extends State<BuildClasses2> {
             }
 
             ispassed() {
-              if (currentTime.isBefore(endTime)) {
+              if (currentTime.isBefore(endTime) &&
+                  gCounter == classtime.weekday) {
                 return false;
               } else {
                 return true;
@@ -127,7 +122,6 @@ class _BuildClasses2State extends State<BuildClasses2> {
                     ),
                     SizedBox(width: 20.0),
                     SizedBox(width: 20.0),
-
                     Flexible(
                       child: Text(
                         storedocs[index]['sub'],
@@ -141,8 +135,6 @@ class _BuildClasses2State extends State<BuildClasses2> {
                       ),
                     ),
                     SizedBox(width: 20.0),
-                    // c.isHappening
-                    //     ?
                     ishappening()
                         ? Container(
                             height: 25.0,
@@ -168,7 +160,7 @@ class _BuildClasses2State extends State<BuildClasses2> {
                     Container(
                       margin: EdgeInsets.only(left: 117.0, bottom: 20.0),
                       width: 2,
-                      height: 100.0,
+                      height: 60.0,
                       color:
                           ispassed() ? kTextColor.withOpacity(0.3) : kTextColor,
                     ),
@@ -223,6 +215,8 @@ class _BuildClasses2State extends State<BuildClasses2> {
                                 fontSize: 15.0,
                                 fontWeight: FontWeight.w600,
                               ),
+                              maxLines: 2,
+                              softWrap: true,
                             ),
                           ],
                         ),

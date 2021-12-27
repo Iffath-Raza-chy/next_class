@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:next_class/constants.dart';
 import 'package:next_class/widgets/build_classes2.dart';
 
 class AdminPanel extends StatefulWidget {
@@ -16,7 +17,7 @@ class _AdminPanelState extends State<AdminPanel> {
   final CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('wednesday');
   final Stream<QuerySnapshot> classStream = FirebaseFirestore.instance
-      .collection(dayname())
+      .collection(dayname(gCounter))
       .orderBy('time')
       .snapshots();
 
@@ -68,34 +69,29 @@ class _AdminPanelState extends State<AdminPanel> {
               storedocs.add(a);
             },
           ).toList();
-          var dateWOtime = DateFormat('yyyy-MM-dd').format(DateTime.now());
+          var dateWOtime = DateFormat('yyyy-MM-dd').format(now);
           var dateWtime = storedocs[0]['time'].toString();
           var finaltime = dateWOtime + " " + dateWtime + ":00";
-          var amne = "";
 
           var startTime = DateTime.parse(finaltime);
           var addedtime =
               startTime.add(Duration(hours: 1, minutes: 30)).toString();
           var endTime = DateTime.parse(addedtime);
 
-          final currentTime = DateTime.now();
+          final currentTime = now;
           List<String> str = [];
           FirebaseFirestore.instance
-              .collection(dayname())
+              .collection(dayname(gCounter))
               .orderBy('time')
               .get()
               .then((QuerySnapshot querySnapshot) {
             for (var doc in querySnapshot.docs) {
               str.add(doc.id.toString());
             }
-            print(str);
           });
 
           if (currentTime.isAfter(startTime) && currentTime.isBefore(endTime)) {
-            amne = "true";
-          } else {
-            amne = "false";
-          }
+          } else {}
           return Column(
             children: const [
               SizedBox(

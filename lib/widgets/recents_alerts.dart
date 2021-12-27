@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart'; 
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/models/alert.dart';
@@ -17,7 +17,7 @@ class RecentsAlerts extends StatelessWidget {
       itemCount: recentAlerts.length,
       itemBuilder: (BuildContext context, int index) {
         Alert alert = recentAlerts[index];
-        int hoursLeft = DateTime.now().difference(alert.time).inHours;
+        int hoursLeft = now.difference(alert.time).inHours;
         hoursLeft = hoursLeft < 0 ? -hoursLeft : 0;
         double percent = hoursLeft / 48;
 
@@ -70,7 +70,7 @@ class RecentsAlerts extends StatelessWidget {
                           ),
                           SizedBox(width: 10.0),
                           Text(
-                            "${DateTime.now().weekday == alert.time.weekday ? "Today" : DateFormat.EEEE().format(alert.time)}, ${dateFormat.format(alert.time)}",
+                            "${now.weekday == alert.time.weekday ? "Today" : DateFormat.EEEE().format(alert.time)}, ${dateFormat.format(alert.time)}",
                             style: TextStyle(
                               color: kTextColor,
                               fontSize: 15.0,

@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       future: _initialization,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Text('Something went Wrong');
+          print("Something Went Wrong");
         }
 
         if (snapshot.connectionState == ConnectionState.done) {

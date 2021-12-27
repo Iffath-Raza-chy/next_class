@@ -57,7 +57,7 @@ class _RecentHomeworksState extends State<RecentHomeworks> {
                           ),
                           SizedBox(width: 10.0),
                           Text(
-                            "${DateTime.now().weekday == homework.dueTime.weekday ? "Today" : DateFormat.EEEE().format(homework.dueTime)}, ${dateFormat.format(homework.dueTime)}",
+                            "${now.weekday == homework.dueTime.weekday ? "Today" : DateFormat.EEEE().format(homework.dueTime)}, ${dateFormat.format(homework.dueTime)}",
                             style: TextStyle(
                               color: kTextColor,
                               fontSize: 16.0,
