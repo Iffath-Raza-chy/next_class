@@ -68,6 +68,9 @@ class _ClassesScreenState extends State<ClassesScreen> {
                     onTap: () {
                       gCounter = gCounter2 - 3;
                       _counter.value = -3;
+                      if (gCounter < 1) {
+                        gCounter = gCounter + 7;
+                      }
                       setState(() {});
                     },
                   ),
@@ -89,6 +92,9 @@ class _ClassesScreenState extends State<ClassesScreen> {
                     onTap: () {
                       gCounter = gCounter2 - 2;
                       _counter.value = -2;
+                      if (gCounter < 1) {
+                        gCounter = gCounter + 7;
+                      }
                       setState(() {});
                     },
                   ),
@@ -110,6 +116,9 @@ class _ClassesScreenState extends State<ClassesScreen> {
                     onTap: () {
                       gCounter = gCounter2 - 1;
                       _counter.value = -1;
+                      if (gCounter < 1) {
+                        gCounter = gCounter + 7;
+                      }
                       setState(() {});
                     },
                   ),
@@ -153,10 +162,11 @@ class _ClassesScreenState extends State<ClassesScreen> {
                     onTap: () {
                       gCounter = gCounter2 + 1;
                       _counter.value = 1;
-                      setState(() {});
+
                       if (gCounter > 7) {
                         gCounter = gCounter - 7;
                       }
+                      setState(() {});
                     },
                   ),
                   InkWell(

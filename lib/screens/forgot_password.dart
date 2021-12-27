@@ -122,24 +122,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 ),
                               ),
                             ),
-                            TextButton(
-                              onPressed: () => {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    PageRouteBuilder(
-                                      pageBuilder: (context, a, b) =>
-                                          LoginPage(),
-                                      transitionDuration: Duration(seconds: 0),
-                                    ),
-                                    (route) => false)
-                              },
-                              child: Text(
-                                'Login',
-                                style: TextStyle(
-                                    color:
-                                        Theme.of(context).secondaryHeaderColor),
-                              ),
-                            )
                           ],
                         ),
                       )

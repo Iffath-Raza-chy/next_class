@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:next_class/screens/forgot_password.dart';
 import 'package:next_class/screens/profile.dart';
+import 'package:next_class/screens/welcome_screen.dart';
 import 'package:next_class/widgets/bottom_navigation.dart';
 
 class LoginPage extends StatefulWidget {
@@ -78,8 +79,17 @@ class _LoginPageState extends State<LoginPage> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (cpmtext) => BottomNavigation()));
+            if (FirebaseAuth.instance.currentUser == null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => WelcomeScreen()),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BottomNavigation()),
+              );
+            }
           },
         ),
         actions: [

@@ -61,17 +61,17 @@ class _AssignmentState extends State<Assignment> {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      Flexible(
+                      Expanded(
+                        flex: 1,
                         child: Container(
                           margin: EdgeInsets.only(bottom: 30.0),
                           padding: EdgeInsets.fromLTRB(20.0, 20.0, 10.0, 10.0),
-                          height: deviceHeight * 0.16,
-                          width: deviceWidth * 0.86,
                           decoration: BoxDecoration(
                             color: kCardColor,
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +134,7 @@ class _AssignmentState extends State<Assignment> {
                                   )
                                 ],
                               ),
-                              //  _todoButton(homework)
+                              _todoButton(homework)
                             ],
                           ),
                         ),

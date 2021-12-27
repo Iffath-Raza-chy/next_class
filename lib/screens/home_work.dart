@@ -84,7 +84,7 @@ class _HomeWorkState extends State<HomeWork> {
                 height: 31,
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(20, 10, 20, 30),
+                padding: EdgeInsets.fromLTRB(9, 10, 9, 20),
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.only(

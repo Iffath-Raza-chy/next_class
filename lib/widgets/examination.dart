@@ -46,7 +46,7 @@ class _HomeWorkwdgState extends State<HomeWorkwdg> {
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(bottom: 30.0),
-                  height: deviceHeight * 0.18,
+                  height: 130,
                   width: 15.0,
                   decoration: BoxDecoration(
                     color: Theme.of(context).secondaryHeaderColor,
@@ -56,12 +56,11 @@ class _HomeWorkwdgState extends State<HomeWorkwdg> {
                     ),
                   ),
                 ),
-                Flexible(
+                Expanded(
                   child: Container(
                     margin: EdgeInsets.only(bottom: 30.0),
                     padding: EdgeInsets.fromLTRB(20.0, 20.0, 10.0, 10.0),
-                    height: deviceHeight * 0.18,
-                    width: deviceWidth * 0.80,
+                    height: 130,
                     decoration: BoxDecoration(
                       color: kCardColor,
                       borderRadius: BorderRadius.only(
