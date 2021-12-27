@@ -1,7 +1,8 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe, deprecated_member_use
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/models/homework.dart';
 
@@ -20,9 +21,6 @@ class _AssignmentState extends State<Assignment> {
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
-    double deviceHeight = MediaQuery.of(context).size.height;
-    DateFormat dateFormat = DateFormat("hh:mm a");
     return Column(
       children: [
         Text(

@@ -1,3 +1,5 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
@@ -16,8 +18,6 @@ class _HomeWorkwdgState extends State<HomeWorkwdg> {
   DateFormat dateFormat = DateFormat("hh:mm a");
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
-    double deviceHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
         Text(

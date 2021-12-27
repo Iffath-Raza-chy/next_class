@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:next_class/models/homework.dart';
 import 'package:next_class/widgets/assignment.dart';
 import 'package:next_class/widgets/header.dart';
 import 'package:next_class/widgets/examination.dart';
