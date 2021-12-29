@@ -3,8 +3,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/models/homework.dart';
+import 'package:next_class/widgets/countdown_painter.dart';
 
 class Assignment extends StatefulWidget {
   const Assignment({Key? key}) : super(key: key);
@@ -16,7 +18,7 @@ class Assignment extends StatefulWidget {
 class _AssignmentState extends State<Assignment> {
   final Stream<QuerySnapshot> assignStream = FirebaseFirestore.instance
       .collection('assignment')
-      .orderBy('timeday')
+      .orderBy('time')
       .snapshots();
 
   @override
@@ -35,27 +37,31 @@ class _AssignmentState extends State<Assignment> {
           height: 30,
         ),
         StreamBuilder<QuerySnapshot>(
-            stream: assignStream,
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return Center(child: Text('Error'));
-              } else if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              final List assignstoredocs = [];
-              snapshot.data!.docs.map((DocumentSnapshot document) {
-                Map b = document.data() as Map<String, dynamic>;
-                assignstoredocs.add(b);
-              }).toList();
-              return ListView.builder(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: assignstoredocs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Homework homework = recentHomeworks[index];
+          stream: assignStream,
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Center(child: Text('Error'));
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final List assignstoredocs = [];
+            snapshot.data!.docs.map((DocumentSnapshot document) {
+              Map b = document.data() as Map<String, dynamic>;
+              assignstoredocs.add(b);
+            }).toList();
+            return ListView.builder(
+              physics: BouncingScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: assignstoredocs.length,
+              itemBuilder: (BuildContext context, int index) {
+                DateTime alert = DateTime.parse(assignstoredocs[index]['time']);
+                int hoursLeft = now.difference(alert).inHours;
+                hoursLeft = hoursLeft < 0 ? -hoursLeft : 0;
+                double percent = hoursLeft / 48;
+                if (hoursLeft > 0) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -75,7 +81,7 @@ class _AssignmentState extends State<Assignment> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    assignstoredocs[index]['sub'],
+                                    assignstoredocs[index]['name'],
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20.0,
@@ -94,7 +100,7 @@ class _AssignmentState extends State<Assignment> {
                                       ),
                                       SizedBox(width: 10.0),
                                       Text(
-                                        assignstoredocs[index]['name'],
+                                        assignstoredocs[index]['sub'],
                                         // "${now.weekday == homework.dueTime.weekday ? "Today" : DateFormat.EEEE().format(homework.dueTime)}, ${dateFormat.format(homework.dueTime)}",
                                         style: TextStyle(
                                           color: kTextColor,
@@ -120,7 +126,10 @@ class _AssignmentState extends State<Assignment> {
                                         width: 10,
                                       ),
                                       Text(
-                                        assignstoredocs[index]['timeday'],
+                                        DateFormat('EEEE, d, MMM, yyyy').format(
+                                            DateTime.parse(
+                                                assignstoredocs[index]
+                                                    ['time'])),
                                         // "${now.weekday == homework.dueTime.weekday ? "Today" : DateFormat.EEEE().format(homework.dueTime)}, ${dateFormat.format(homework.dueTime)}",
                                         style: TextStyle(
                                           color: kTextColor,
@@ -132,16 +141,49 @@ class _AssignmentState extends State<Assignment> {
                                   )
                                 ],
                               ),
-                              _todoButton(homework)
+                              CustomPaint(
+                                foregroundPainter: CountdownPainter(
+                                  bgColor: kBGColor,
+                                  lineColor: _getColor(context, percent),
+                                  percent: percent,
+                                  width: 4.0,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "$hoursLeft",
+                                        style: TextStyle(
+                                          color: _getColor(context, percent),
+                                          fontSize: 26.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      Text(
+                                        "hours left",
+                                        style: TextStyle(
+                                          color: _getColor(context, percent),
+                                          fontSize: 13.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
                             ],
                           ),
                         ),
                       ),
                     ],
                   );
-                },
-              );
-            }),
+                }
+                return Container();
+              },
+            );
+          },
+        ),
       ],
     );
   }
@@ -161,5 +203,11 @@ class _AssignmentState extends State<Assignment> {
           : Colors.transparent,
       child: homework.isDone ? Icon(Icons.check, color: Colors.white) : null,
     );
+  }
+
+  _getColor(BuildContext context, double percent) {
+    if (percent >= 0.4) return Theme.of(context).colorScheme.secondary;
+
+    return kHourColor;
   }
 }
