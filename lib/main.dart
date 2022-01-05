@@ -46,7 +46,9 @@ class MyApp extends StatelessWidget {
             home: WelcomeScreen(),
           );
         }
-        return const CircularProgressIndicator();
+        return Center(
+          child: const CircularProgressIndicator(),
+        );
       },
     );
   }
