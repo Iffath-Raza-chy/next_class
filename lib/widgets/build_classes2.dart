@@ -120,9 +120,8 @@ class _BuildClasses2State extends State<BuildClasses2> {
                       maxLines: 2,
                       softWrap: true,
                     ),
-                    SizedBox(width: 20.0),
-                    SizedBox(width: 20.0),
-                    Flexible(
+                    SizedBox(width: 40.0),
+                    Expanded(
                       child: Text(
                         storedocs[index]['sub'],
                         style: TextStyle(
@@ -137,7 +136,7 @@ class _BuildClasses2State extends State<BuildClasses2> {
                     SizedBox(width: 20.0),
                     ishappening()
                         ? Container(
-                            height: 25.0,
+                            height: 30.0,
                             width: 40.0,
                             decoration: BoxDecoration(
                               color: Theme.of(context).secondaryHeaderColor,
@@ -146,7 +145,9 @@ class _BuildClasses2State extends State<BuildClasses2> {
                             child: Center(
                               child: Text(
                                 "Now",
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           )
@@ -160,67 +161,100 @@ class _BuildClasses2State extends State<BuildClasses2> {
                     Container(
                       margin: EdgeInsets.only(left: 117.0, bottom: 20.0),
                       width: 2,
-                      height: 60.0,
+                      height: 75.0,
                       color:
                           ispassed() ? kTextColor.withOpacity(0.3) : kTextColor,
                     ),
                     SizedBox(width: 28.0),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.location_on,
-                              color: ispassed()
-                                  ? Theme.of(context)
-                                      .secondaryHeaderColor
-                                      .withOpacity(0.3)
-                                  : Theme.of(context).secondaryHeaderColor,
-                              size: 20.0,
-                            ),
-                            SizedBox(width: 8.0),
-                            Text(
-                              storedocs[index]['type'],
-                              style: TextStyle(
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.location_on,
                                 color: ispassed()
-                                    ? kTextColor.withOpacity(0.3)
-                                    : kTextColor,
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w600,
+                                    ? Theme.of(context)
+                                        .secondaryHeaderColor
+                                        .withOpacity(0.3)
+                                    : Theme.of(context).secondaryHeaderColor,
+                                size: 20.0,
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 6.0),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Icon(
-                              Icons.person,
-                              color: ispassed()
-                                  ? Theme.of(context)
-                                      .secondaryHeaderColor
-                                      .withOpacity(0.3)
-                                  : Theme.of(context).secondaryHeaderColor,
-                              size: 20.0,
-                            ),
-                            SizedBox(width: 8.0),
-                            Text(
-                              storedocs[index]['teacher'],
-                              style: TextStyle(
+                              SizedBox(width: 8.0),
+                              Text(
+                                storedocs[index]['type'],
+                                style: TextStyle(
+                                  color: ispassed()
+                                      ? kTextColor.withOpacity(0.3)
+                                      : kTextColor,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 6.0),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(
+                                Icons.person,
                                 color: ispassed()
-                                    ? kTextColor.withOpacity(0.3)
-                                    : kTextColor,
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w600,
+                                    ? Theme.of(context)
+                                        .secondaryHeaderColor
+                                        .withOpacity(0.3)
+                                    : Theme.of(context).secondaryHeaderColor,
+                                size: 20.0,
                               ),
-                              maxLines: 2,
-                              softWrap: true,
-                            ),
-                          ],
-                        ),
-                      ],
+                              SizedBox(width: 8.0),
+                              Expanded(
+                                child: Text(
+                                  storedocs[index]['teacher'],
+                                  style: TextStyle(
+                                    color: ispassed()
+                                        ? kTextColor.withOpacity(0.3)
+                                        : kTextColor,
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 6,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.link,
+                                color: ispassed()
+                                    ? Theme.of(context)
+                                        .secondaryHeaderColor
+                                        .withOpacity(0.3)
+                                    : Theme.of(context).secondaryHeaderColor,
+                                size: 20.0,
+                              ),
+                              SizedBox(width: 8.0),
+                              InkWell(
+                                splashColor: Colors.green,
+                                onTap: () {},
+                                child: Text(
+                                  "Google Meet",
+                                  style: TextStyle(
+                                    color: ispassed()
+                                        ? Colors.blue.withOpacity(0.3)
+                                        : Colors.blue,
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

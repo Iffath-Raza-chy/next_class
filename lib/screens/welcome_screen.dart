@@ -88,7 +88,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 SizedBox(
                   height: 80,
                 ),
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     Navigator.of(context).pop(false);
                     if (FirebaseAuth.instance.currentUser == null) {

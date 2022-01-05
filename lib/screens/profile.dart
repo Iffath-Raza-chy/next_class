@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:next_class/admin%20panel/adminpanel.dart';
 import 'package:next_class/models/user_model.dart';
-import 'package:next_class/screens/adminpanel.dart';
 import 'package:next_class/screens/login_page.dart';
 import 'package:next_class/widgets/bottom_navigation.dart';
 

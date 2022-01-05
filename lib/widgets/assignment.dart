@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
-import 'package:next_class/models/homework.dart';
 import 'package:next_class/widgets/countdown_painter.dart';
 
 class Assignment extends StatefulWidget {
@@ -66,7 +65,6 @@ class _AssignmentState extends State<Assignment> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Expanded(
-                        flex: 1,
                         child: Container(
                           margin: EdgeInsets.only(bottom: 30.0),
                           padding: EdgeInsets.fromLTRB(20.0, 20.0, 10.0, 10.0),
@@ -74,11 +72,11 @@ class _AssignmentState extends State<Assignment> {
                             color: kCardColor,
                             borderRadius: BorderRadius.circular(12.0),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Stack(
                             children: <Widget>[
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
                                     assignstoredocs[index]['name'],
@@ -115,6 +113,8 @@ class _AssignmentState extends State<Assignment> {
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Icon(
                                         AntDesign.clockcircle,
@@ -126,7 +126,7 @@ class _AssignmentState extends State<Assignment> {
                                         width: 10,
                                       ),
                                       Text(
-                                        DateFormat('EEEE, d, MMM, yyyy').format(
+                                        DateFormat('EE, d-MMM, yyyy').format(
                                             DateTime.parse(
                                                 assignstoredocs[index]
                                                     ['time'])),
@@ -138,37 +138,94 @@ class _AssignmentState extends State<Assignment> {
                                         ),
                                       ),
                                     ],
-                                  )
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      OutlinedButton(
+                                        onPressed: () {},
+                                        child: Text("Choose a file"),
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.blueGrey[100],
+                                          minimumSize: Size(40, 25),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 30,
+                                      ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Theme.of(context)
+                                              .secondaryHeaderColor,
+                                          padding: EdgeInsets.all(10),
+                                          minimumSize: Size(10.0, 10.0),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                          ),
+                                        ),
+                                        onPressed: () {},
+                                        child: Text("Submit"),
+                                      )
+                                    ],
+                                  ),
                                 ],
                               ),
-                              CustomPaint(
-                                foregroundPainter: CountdownPainter(
-                                  bgColor: kBGColor,
-                                  lineColor: _getColor(context, percent),
-                                  percent: percent,
-                                  width: 4.0,
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "$hoursLeft",
-                                        style: TextStyle(
-                                          color: _getColor(context, percent),
-                                          fontSize: 26.0,
-                                          fontWeight: FontWeight.w600,
+                              Positioned(
+                                right: 8,
+                                child: CustomPaint(
+                                  foregroundPainter: CountdownPainter(
+                                    bgColor: kBGColor,
+                                    lineColor: _getColor(context, percent),
+                                    percent: percent,
+                                    width: 4.0,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(
+                                        ((MediaQuery.of(context).size.height *
+                                                    MediaQuery.of(context)
+                                                        .size
+                                                        .width) /
+                                                2) *
+                                            .00011),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "$hoursLeft",
+                                          style: TextStyle(
+                                            color: _getColor(context, percent),
+                                            fontSize: ((MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width) /
+                                                    2) *
+                                                .0002,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        "hours left",
-                                        style: TextStyle(
-                                          color: _getColor(context, percent),
-                                          fontSize: 13.0,
+                                        Text(
+                                          "hours left",
+                                          style: TextStyle(
+                                            color: _getColor(context, percent),
+                                            fontSize: ((MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width) /
+                                                    2) *
+                                                .00007,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               )
@@ -188,7 +245,7 @@ class _AssignmentState extends State<Assignment> {
     );
   }
 
-  _todoButton(Homework homework) {
+  _todoButton(homework) {
     return RaisedButton(
       onPressed: () {
         setState(() {

@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/screens/classes_screen.dart';
 import 'package:next_class/screens/home_screen.dart';
-import 'package:next_class/screens/home_work.dart';
+import 'package:next_class/screens/notice_screen.dart';
 import 'package:next_class/screens/test_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -19,19 +19,20 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedTab = 0;
   late Widget _currentPage;
   late List<Widget> _pages;
+
   late HomeScreen _homeScreen;
-  late TestScreen _testScreen;
-  late HomeWork _homeWork;
   late ClassesScreen _classesScreen;
+  late TestScreen _testScreen;
+  late NoticeScreen _noticeScreen;
 
   @override
   void initState() {
     super.initState();
     _homeScreen = HomeScreen();
     _classesScreen = ClassesScreen();
-    _homeWork = HomeWork();
     _testScreen = TestScreen();
-    _pages = [_homeScreen, _classesScreen, _homeWork, _testScreen];
+    _noticeScreen = NoticeScreen();
+    _pages = [_homeScreen, _classesScreen, _testScreen, _noticeScreen];
     _currentPage = _homeScreen;
   }
 

@@ -8,14 +8,14 @@ import 'package:next_class/constants.dart';
 import 'package:next_class/widgets/countdown_painter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomeWorkwdg extends StatefulWidget {
-  const HomeWorkwdg({Key? key}) : super(key: key);
+class Examination extends StatefulWidget {
+  const Examination({Key? key}) : super(key: key);
 
   @override
-  _HomeWorkwdgState createState() => _HomeWorkwdgState();
+  _ExaminationState createState() => _ExaminationState();
 }
 
-class _HomeWorkwdgState extends State<HomeWorkwdg> {
+class _ExaminationState extends State<Examination> {
   final Stream<QuerySnapshot> examStream =
       FirebaseFirestore.instance.collection('exam').orderBy('time').snapshots();
   DateFormat dateFormat = DateFormat("hh:mm a");
@@ -50,10 +50,6 @@ class _HomeWorkwdgState extends State<HomeWorkwdg> {
                 examstoredocs.add(c);
               }).toList();
 
-              // DateTime dates = DateTime.parse(examstoredocs[0]['time']);
-
-              // print(DateFormat('hh dd a').format(dates));
-
               return ListView.builder(
                 physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
@@ -69,7 +65,7 @@ class _HomeWorkwdgState extends State<HomeWorkwdg> {
                     children: <Widget>[
                       Container(
                         margin: EdgeInsets.only(bottom: 30.0),
-                        height: 150,
+                        height: MediaQuery.of(context).size.height * .20,
                         width: 15.0,
                         decoration: BoxDecoration(
                           color: Theme.of(context).secondaryHeaderColor,
@@ -83,7 +79,7 @@ class _HomeWorkwdgState extends State<HomeWorkwdg> {
                         child: Container(
                           margin: EdgeInsets.only(bottom: 30.0),
                           padding: EdgeInsets.fromLTRB(20.0, 20.0, 10.0, 10.0),
-                          height: 170,
+                          height: MediaQuery.of(context).size.height * .20,
                           decoration: BoxDecoration(
                             color: kCardColor,
                             borderRadius: BorderRadius.only(
@@ -144,6 +140,9 @@ class _HomeWorkwdgState extends State<HomeWorkwdg> {
                                       ),
                                     ],
                                   ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
                                   Row(
                                     children: [
                                       Icon(
@@ -162,19 +161,16 @@ class _HomeWorkwdgState extends State<HomeWorkwdg> {
                                           fontSize: 15.0,
                                         ),
                                       ),
-                                      Text(
-                                        'Google Meet ',
-                                        style: TextStyle(
-                                          color: kTextColor,
-                                          fontSize: 15.0,
-                                        ),
+                                      SizedBox(
+                                        width: 10,
                                       ),
-                                      IconButton(
-                                        onPressed: _launchURL,
-                                        icon: Icon(
-                                          Icons.open_in_browser,
+                                      InkWell(
+                                        child: Text(
+                                          "Google Form",
+                                          style: TextStyle(
+                                              color: Colors.blue, fontSize: 15),
                                         ),
-                                        color: Colors.white,
+                                        onTap: () {},
                                       )
                                     ],
                                   ),
@@ -187,10 +183,16 @@ class _HomeWorkwdgState extends State<HomeWorkwdg> {
                                     bgColor: kBGColor,
                                     lineColor: _getColor(context, percent),
                                     percent: percent,
-                                    width: 4.0,
+                                    width: 5.0,
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.all(20.0),
+                                    padding: EdgeInsets.all(
+                                        ((MediaQuery.of(context).size.height *
+                                                    MediaQuery.of(context)
+                                                        .size
+                                                        .width) /
+                                                2) *
+                                            .00011),
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -199,7 +201,14 @@ class _HomeWorkwdgState extends State<HomeWorkwdg> {
                                           "$hoursLeft",
                                           style: TextStyle(
                                             color: _getColor(context, percent),
-                                            fontSize: 26.0,
+                                            fontSize: ((MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width) /
+                                                    2) *
+                                                .0002,
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
@@ -207,7 +216,14 @@ class _HomeWorkwdgState extends State<HomeWorkwdg> {
                                           "hours left",
                                           style: TextStyle(
                                             color: _getColor(context, percent),
-                                            fontSize: 13.0,
+                                            fontSize: ((MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width) /
+                                                    2) *
+                                                .00007,
                                           ),
                                         ),
                                       ],

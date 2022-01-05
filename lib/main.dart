@@ -6,6 +6,7 @@ import 'package:next_class/screens/welcome_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(
     MyApp(),
   );
@@ -39,21 +40,10 @@ class MyApp extends StatelessWidget {
               secondaryHeaderColor: Color(0xFF63CF93),
               backgroundColor: Color(0xFF12171D),
               visualDensity: VisualDensity.adaptivePlatformDensity,
+              appBarTheme:
+                  AppBarTheme(systemOverlayStyle: SystemUiOverlayStyle.dark),
             ),
-            home: FutureBuilder(
-              future: _initialization,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Something went Wrong');
-                } else if (snapshot.hasData) {
-                  return WelcomeScreen();
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            ),
+            home: WelcomeScreen(),
           );
         }
         return const CircularProgressIndicator();

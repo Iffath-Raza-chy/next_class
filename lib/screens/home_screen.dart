@@ -55,9 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: const <Widget>[
-                  IgnorePointer(
-                    child: HomeWorkwdg(),
-                  ),
+                  Examination(),
                   Assignment(),
                   SizedBox(height: 60.0),
                 ],
