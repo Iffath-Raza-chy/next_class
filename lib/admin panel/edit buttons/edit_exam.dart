@@ -2,29 +2,29 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:next_class/constants.dart';
 
-class EditAssignment extends StatefulWidget {
+class EditExam extends StatefulWidget {
   String id;
-  EditAssignment({Key? key, required this.id}) : super(key: key);
+  EditExam({Key? key, required this.id}) : super(key: key);
 
   @override
-  _EditAssignmentState createState() => _EditAssignmentState();
+  _EditExamState createState() => _EditExamState();
 }
 
-class _EditAssignmentState extends State<EditAssignment> {
-  final _updateAssignFormKey = GlobalKey<FormState>();
-  CollectionReference updateAssignstudents =
-      FirebaseFirestore.instance.collection('assignment');
-
-  Future<void> updateAssign(id, name, sub, time) {
-    return updateAssignstudents
-        .doc(id)
-        .update({'name': name, 'sub': sub, 'time': time})
-        .then((value) => snackb = 1)
-        .catchError((error) => print('Error'));
-  }
-
+class _EditExamState extends State<EditExam> {
   @override
   Widget build(BuildContext context) {
+    final _updateExamFormKey = GlobalKey<FormState>();
+    CollectionReference updateExamstudents =
+        FirebaseFirestore.instance.collection('exam');
+
+    Future<void> updateExam(id, type, sub, time) {
+      return updateExamstudents
+          .doc(id)
+          .update({'type': type, 'sub': sub, 'time': time})
+          .then((value) => snackb = 1)
+          .catchError((error) => print('Error'));
+    }
+
     return Container(
       padding: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 280),
       child: Material(
@@ -35,16 +35,19 @@ class _EditAssignmentState extends State<EditAssignment> {
             child: Column(
               children: [
                 Center(
-                  child: Text('Edit Assignment Data'),
+                  child: Text(
+                    'Edit Exam Details',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
                 ),
                 SizedBox(
                   height: 30,
                 ),
                 Form(
-                  key: _updateAssignFormKey,
+                  key: _updateExamFormKey,
                   child: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                     future: FirebaseFirestore.instance
-                        .collection('assignment')
+                        .collection('exam')
                         .doc(widget.id)
                         .get(),
                     builder: (_, snapshot) {
@@ -75,7 +78,7 @@ class _EditAssignmentState extends State<EditAssignment> {
                         );
                       }
                       var data = snapshot.data!.data();
-                      var name = data!['name'];
+                      var type = data!['type'];
                       var sub = data['sub'];
                       var time = data['time'];
                       return Column(
@@ -83,11 +86,11 @@ class _EditAssignmentState extends State<EditAssignment> {
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 10.0),
                             child: TextFormField(
-                              initialValue: name,
+                              initialValue: type,
                               autofocus: false,
-                              onChanged: (value) => name = value,
+                              onChanged: (value) => type = value,
                               decoration: InputDecoration(
-                                labelText: 'Name: ',
+                                labelText: 'Type: ',
                                 labelStyle: TextStyle(fontSize: 20.0),
                                 border: OutlineInputBorder(),
                                 errorStyle: TextStyle(
@@ -95,7 +98,7 @@ class _EditAssignmentState extends State<EditAssignment> {
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please Enter Name';
+                                  return 'Please Enter Exam Type';
                                 }
                                 return null;
                               },
@@ -129,7 +132,7 @@ class _EditAssignmentState extends State<EditAssignment> {
                               autofocus: false,
                               onChanged: (value) => time = value,
                               decoration: InputDecoration(
-                                labelText: 'DeadLine: ',
+                                labelText: 'Exam Date: ',
                                 labelStyle: TextStyle(fontSize: 20.0),
                                 border: OutlineInputBorder(),
                                 errorStyle: TextStyle(
@@ -163,9 +166,9 @@ class _EditAssignmentState extends State<EditAssignment> {
                               OutlinedButton(
                                 onPressed: () {
                                   // Validate returns true if the form is valid, otherwise false.
-                                  if (_updateAssignFormKey.currentState!
+                                  if (_updateExamFormKey.currentState!
                                       .validate()) {
-                                    updateAssign(widget.id, name, sub, time);
+                                    updateExam(widget.id, type, sub, time);
                                     Navigator.pop(context);
                                     if (snackb > 0) {
                                       ScaffoldMessenger.of(context)
@@ -173,7 +176,7 @@ class _EditAssignmentState extends State<EditAssignment> {
                                         SnackBar(
                                           backgroundColor: Colors.green,
                                           content: Text(
-                                            'Assignment Updated Successfully',
+                                            'Exam Updated Successfully',
                                             style:
                                                 TextStyle(color: Colors.white),
                                             textAlign: TextAlign.center,

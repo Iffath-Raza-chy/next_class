@@ -38,7 +38,25 @@ class _ExaminationState extends State<Examination> {
             stream: examStream,
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
-                return Center(child: Text('Error'));
+                return Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        'Something Went Wrong!',
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      OutlinedButton(
+                        onPressed: () {
+                          setState(() {});
+                        },
+                        child: Text('Try Again'),
+                      )
+                    ],
+                  ),
+                );
               } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(),

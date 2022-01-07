@@ -12,10 +12,15 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-  MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -25,10 +30,24 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           Center(
-              child: Text("Something Went Wrong",
+            child: Column(
+              children: [
+                Text(
+                  'Something Went Wrong!',
                   style: TextStyle(
-                    color: Colors.white,
-                  )));
+                      color: Colors.red,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+                ),
+                OutlinedButton(
+                  onPressed: () {
+                    setState(() {});
+                  },
+                  child: Text('Try Again'),
+                )
+              ],
+            ),
+          );
         }
 
         if (snapshot.connectionState == ConnectionState.done) {

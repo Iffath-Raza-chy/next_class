@@ -1,55 +1,53 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/widgets/bottom_navigation.dart';
 
-class AddAssignment extends StatefulWidget {
-  const AddAssignment({Key? key}) : super(key: key);
+class AddExam extends StatefulWidget {
+  const AddExam({Key? key}) : super(key: key);
 
   @override
-  _AddAssignmentState createState() => _AddAssignmentState();
+  _AddExamState createState() => _AddExamState();
 }
 
-class _AddAssignmentState extends State<AddAssignment> {
-  CollectionReference assignemnt =
-      FirebaseFirestore.instance.collection('assignment');
+class _AddExamState extends State<AddExam> {
+  CollectionReference exam = FirebaseFirestore.instance.collection('exam');
 
-  late DateTime _assignDateTime;
-  late TimeOfDay _assignTime;
-  final _assignmentFormKey = GlobalKey<FormState>();
-  var name = "";
+  late DateTime _examDateTime;
+  late TimeOfDay _examTime;
+  final _examFormKey = GlobalKey<FormState>();
+  var type = "";
   var sub = "";
   var time = "";
   var date = "";
   var finaltime = "";
 
-  final assignNameController = TextEditingController();
-  final assignsubController = TextEditingController();
-  final assignTimeController = TextEditingController();
+  final examTypeController = TextEditingController();
+  final examSubController = TextEditingController();
+  final examTimeController = TextEditingController();
 
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    assignNameController.dispose();
-    assignsubController.dispose();
-    assignTimeController.dispose();
+    examTypeController.dispose();
+    examSubController.dispose();
+    examTimeController.dispose();
     super.dispose();
   }
 
   clearText() {
-    assignNameController.clear();
-    assignsubController.clear();
-    assignTimeController.clear();
+    examTypeController.clear();
+    examSubController.clear();
+    examTimeController.clear();
   }
 
   Future<void> addUser() {
     finaltime = date + " " + time;
-    return assignemnt
-        .add({'name': name, 'sub': sub, 'time': finaltime})
+    return exam
+        .add({'type': type, 'sub': sub, 'time': finaltime})
         .then(
           (value) => showDialog(
+            barrierDismissible: true,
             context: context,
             builder: (_) => AlertDialog(
               title: Center(
@@ -59,7 +57,6 @@ class _AddAssignmentState extends State<AddAssignment> {
                 "assets/gif/successful.gif",
                 fit: BoxFit.fitHeight,
               ),
-              actionsAlignment: MainAxisAlignment.center,
             ),
           ),
         )
@@ -81,7 +78,9 @@ class _AddAssignmentState extends State<AddAssignment> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text("Add New Assignment"),
+        title: Center(
+          child: Text("Add New Exams"),
+        ),
         backgroundColor: Theme.of(context).secondaryHeaderColor,
         leading: IconButton(
           onPressed: () {
@@ -125,7 +124,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                       color: Colors.blue[50],
                     ),
                     child: Form(
-                      key: _assignmentFormKey,
+                      key: _examFormKey,
                       child: Column(
                         children: [
                           SizedBox(
@@ -147,7 +146,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                                 errorStyle:
                                     TextStyle(color: Colors.red, fontSize: 15),
                               ),
-                              controller: assignsubController,
+                              controller: examSubController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please Enter Subject Name';
@@ -160,7 +159,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                             child: TextFormField(
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.only(bottom: 3),
-                                labelText: "Assignment Name",
+                                labelText: "Exam Type",
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.always,
                                 border: OutlineInputBorder(
@@ -171,10 +170,10 @@ class _AddAssignmentState extends State<AddAssignment> {
                                 errorStyle:
                                     TextStyle(color: Colors.red, fontSize: 15),
                               ),
-                              controller: assignNameController,
+                              controller: examTypeController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please Enter Assignment Name';
+                                  return 'Please Enter Exam Type';
                                 }
                               },
                             ),
@@ -187,7 +186,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.only(bottom: 3),
                                   hintText: time.isEmpty
-                                      ? "Pick a Deadline"
+                                      ? "Pick an Exam Date"
                                       : date + " " + time,
                                   labelStyle: TextStyle(),
                                   floatingLabelBehavior:
@@ -200,10 +199,10 @@ class _AddAssignmentState extends State<AddAssignment> {
                                   errorStyle: TextStyle(
                                       color: Colors.red, fontSize: 15),
                                 ),
-                                controller: assignTimeController,
+                                controller: examTimeController,
                                 validator: (value) {
                                   if (date.isEmpty || time.isEmpty) {
-                                    return 'Please Enter Time';
+                                    return 'Please Choose a Time';
                                   }
                                 },
                               ),
@@ -222,7 +221,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                                     ),
                                   ),
                                   onPressed: () async {
-                                    _assignDateTime = (await showDatePicker(
+                                    _examDateTime = (await showDatePicker(
                                       context: context,
                                       initialDate: now,
                                       firstDate: DateTime(2020),
@@ -230,7 +229,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                                     ))!;
                                     setState(() {
                                       date = DateFormat("yyyy-MM-dd")
-                                          .format(_assignDateTime)
+                                          .format(_examDateTime)
                                           .toString();
                                     });
                                   },
@@ -254,12 +253,12 @@ class _AddAssignmentState extends State<AddAssignment> {
                                     ),
                                   ),
                                   onPressed: () async {
-                                    _assignTime = (await showTimePicker(
+                                    _examTime = (await showTimePicker(
                                       context: context,
                                       initialTime: TimeOfDay.now(),
                                     ))!;
                                     setState(() {
-                                      time = _assignTime.format(context);
+                                      time = _examTime.format(context);
                                       DateTime date =
                                           DateFormat.jm().parse(time);
 
@@ -322,18 +321,17 @@ class _AddAssignmentState extends State<AddAssignment> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    if (_assignmentFormKey.currentState!
-                                        .validate()) {
+                                    if (_examFormKey.currentState!.validate()) {
                                       setState(
                                         () {
                                           finaltime = date + " " + time;
-                                          name = assignNameController.text;
-                                          sub = assignsubController.text;
-                                          finaltime = assignTimeController.text;
+                                          type = examTypeController.text;
+                                          sub = examSubController.text;
+                                          finaltime = examTimeController.text;
                                           addUser();
                                           clearText();
 
-                                          Navigator.pop(context, true);
+                                          Navigator.pop(context);
                                         },
                                       );
                                     }
