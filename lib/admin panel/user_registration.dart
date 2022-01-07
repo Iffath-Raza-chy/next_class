@@ -24,7 +24,14 @@ class _UserRegistrationState extends State<UserRegistration> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.add),
+            icon: Container(
+              padding: EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                color: Theme.of(context).backgroundColor,
+                borderRadius: BorderRadius.circular(35),
+              ),
+              child: Icon(Icons.add),
+            ),
           ),
         ],
       ),

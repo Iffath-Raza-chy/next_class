@@ -74,13 +74,19 @@ class _ExamManagerState extends State<ExamManager> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: Container(
+              padding: EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                color: Theme.of(context).backgroundColor,
+                borderRadius: BorderRadius.circular(35),
+              ),
+              child: Icon(Icons.add),
+            ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddExam(),
-                ),
+              showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (_) => AddExam(),
               );
             },
           ),

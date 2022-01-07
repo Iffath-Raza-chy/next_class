@@ -173,6 +173,7 @@ class _BuildClassesForRoutineManagerState
                             IconButton(
                               onPressed: () {
                                 showDialog(
+                                  barrierDismissible: true,
                                   context: context,
                                   builder: (_) => EditRoutine(
                                       id: routinestoredocs[index]['id']),

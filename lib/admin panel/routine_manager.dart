@@ -33,12 +33,13 @@ class _RoutineManagerState extends State<RoutineManager> {
                   MaterialPageRoute(builder: (context) => AddRoutine()));
             },
             icon: Container(
-                padding: EdgeInsets.all(3),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).backgroundColor,
-                  borderRadius: BorderRadius.circular(35),
-                ),
-                child: Icon(Icons.add)),
+              padding: EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                color: Theme.of(context).backgroundColor,
+                borderRadius: BorderRadius.circular(35),
+              ),
+              child: Icon(Icons.add),
+            ),
           ),
         ],
       ),

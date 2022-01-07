@@ -72,13 +72,19 @@ class _AssignmentManagerState extends State<AssignmentManager> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: Container(
+              padding: EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                color: Theme.of(context).backgroundColor,
+                borderRadius: BorderRadius.circular(35),
+              ),
+              child: Icon(Icons.add),
+            ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddAssignment(),
-                ),
+              showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (_) => AddAssignment(),
               );
             },
           ),
@@ -89,7 +95,7 @@ class _AssignmentManagerState extends State<AssignmentManager> {
         stream: addAssignStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-           Center(
+            Center(
               child: Column(
                 children: [
                   Text(
