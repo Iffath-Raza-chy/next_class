@@ -26,6 +26,7 @@ class _AddExamState extends State<AddExam> {
   final examSubController = TextEditingController();
   final examTimeController = TextEditingController();
 
+  @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     examTypeController.dispose();
@@ -74,55 +75,106 @@ class _AddExamState extends State<AddExam> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: ListView(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.blue[50],
-                      ),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: Icon(Icons.close),
-                            ),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: ListView(
+        children: [
+          SizedBox(
+            height: 40,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.blue[50],
+                    ),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(Icons.close),
                           ),
-                          Form(
-                            key: _examFormKey,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 35,
+                        ),
+                        Form(
+                          key: _examFormKey,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 35,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(15.0),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Subject Name",
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    errorStyle: TextStyle(
+                                        color: Colors.red, fontSize: 15),
+                                  ),
+                                  controller: examSubController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Enter Subject Name';
+                                    }
+                                  },
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.all(15.0),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(15.0),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Exam Type",
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    errorStyle: TextStyle(
+                                        color: Colors.red, fontSize: 15),
+                                  ),
+                                  controller: examTypeController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Enter Exam Type';
+                                    }
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(15.0),
+                                child: IgnorePointer(
                                   child: TextFormField(
+                                    textAlign: TextAlign.center,
                                     decoration: InputDecoration(
                                       contentPadding:
                                           EdgeInsets.only(bottom: 3),
-                                      labelText: "Subject Name",
+                                      hintText: time.isEmpty
+                                          ? "Pick an Exam Date"
+                                          : date + " " + time,
+                                      labelStyle: TextStyle(),
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always,
                                       border: OutlineInputBorder(
@@ -133,234 +185,178 @@ class _AddExamState extends State<AddExam> {
                                       errorStyle: TextStyle(
                                           color: Colors.red, fontSize: 15),
                                     ),
-                                    controller: examSubController,
+                                    controller: examTimeController,
                                     validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please Enter Subject Name';
+                                      if (date.isEmpty || time.isEmpty) {
+                                        return 'Please Choose a Time';
                                       }
                                     },
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.all(15.0),
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(bottom: 3),
-                                      labelText: "Exam Type",
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.always,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20, right: 20),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    OutlinedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.blue,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
                                         ),
                                       ),
-                                      errorStyle: TextStyle(
-                                          color: Colors.red, fontSize: 15),
-                                    ),
-                                    controller: examTypeController,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please Enter Exam Type';
-                                      }
-                                    },
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(15.0),
-                                  child: IgnorePointer(
-                                    child: TextFormField(
-                                      textAlign: TextAlign.center,
-                                      decoration: InputDecoration(
-                                        contentPadding:
-                                            EdgeInsets.only(bottom: 3),
-                                        hintText: time.isEmpty
-                                            ? "Pick an Exam Date"
-                                            : date + " " + time,
-                                        labelStyle: TextStyle(),
-                                        floatingLabelBehavior:
-                                            FloatingLabelBehavior.always,
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10),
+                                      onPressed: () async {
+                                        _examDateTime = (await showDatePicker(
+                                          context: context,
+                                          initialDate: now,
+                                          firstDate: DateTime(2020),
+                                          lastDate: DateTime(2030),
+                                        ))!;
+                                        setState(() {
+                                          date = DateFormat("yyyy-MM-dd")
+                                              .format(_examDateTime)
+                                              .toString();
+                                        });
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(7.0),
+                                        child: Text(
+                                          'Date',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            letterSpacing: 2.2,
+                                            color: Colors.white,
                                           ),
                                         ),
-                                        errorStyle: TextStyle(
-                                            color: Colors.red, fontSize: 15),
                                       ),
-                                      controller: examTimeController,
-                                      validator: (value) {
-                                        if (date.isEmpty || time.isEmpty) {
-                                          return 'Please Choose a Time';
+                                    ),
+                                    OutlinedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.blue,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                      onPressed: () async {
+                                        _examTime = (await showTimePicker(
+                                          context: context,
+                                          initialTime: TimeOfDay.now(),
+                                        ))!;
+                                        setState(() {
+                                          time = _examTime.format(context);
+                                          DateTime date =
+                                              DateFormat.jm().parse(time);
+
+                                          time = DateFormat('HH:mm:ss')
+                                              .format(date)
+                                              .toString();
+                                        });
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(7.0),
+                                        child: Text(
+                                          'Time',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            letterSpacing: 2.2,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    OutlinedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          clearText();
+                                          date = "";
+                                          time = "";
+                                        });
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Text(
+                                          'Reset',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            letterSpacing: 2.2,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    OutlinedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Theme.of(context)
+                                            .secondaryHeaderColor,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        if (_examFormKey.currentState!
+                                            .validate()) {
+                                          setState(
+                                            () {
+                                              finaltime = date + " " + time;
+                                              type = examTypeController.text;
+                                              sub = examSubController.text;
+                                              finaltime =
+                                                  examTimeController.text;
+                                              addExam();
+                                              clearText();
+
+                                              Navigator.pop(context);
+                                            },
+                                          );
                                         }
                                       },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Text(
+                                          'Publish',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            letterSpacing: 2.2,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20, right: 20),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      OutlinedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.blue,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                        ),
-                                        onPressed: () async {
-                                          _examDateTime = (await showDatePicker(
-                                            context: context,
-                                            initialDate: now,
-                                            firstDate: DateTime(2020),
-                                            lastDate: DateTime(2030),
-                                          ))!;
-                                          setState(() {
-                                            date = DateFormat("yyyy-MM-dd")
-                                                .format(_examDateTime)
-                                                .toString();
-                                          });
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(7.0),
-                                          child: Text(
-                                            'Date',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              letterSpacing: 2.2,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      OutlinedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.blue,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                        ),
-                                        onPressed: () async {
-                                          _examTime = (await showTimePicker(
-                                            context: context,
-                                            initialTime: TimeOfDay.now(),
-                                          ))!;
-                                          setState(() {
-                                            time = _examTime.format(context);
-                                            DateTime date =
-                                                DateFormat.jm().parse(time);
-
-                                            time = DateFormat('HH:mm:ss')
-                                                .format(date)
-                                                .toString();
-                                          });
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(7.0),
-                                          child: Text(
-                                            'Time',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              letterSpacing: 2.2,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(20),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      OutlinedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            clearText();
-                                            date = "";
-                                            time = "";
-                                          });
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: Text(
-                                            'Reset',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              letterSpacing: 2.2,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      OutlinedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Theme.of(context)
-                                              .secondaryHeaderColor,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          if (_examFormKey.currentState!
-                                              .validate()) {
-                                            setState(
-                                              () {
-                                                finaltime = date + " " + time;
-                                                type = examTypeController.text;
-                                                sub = examSubController.text;
-                                                finaltime =
-                                                    examTimeController.text;
-                                                addExam();
-                                                clearText();
-
-                                                Navigator.pop(context);
-                                              },
-                                            );
-                                          }
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: Text(
-                                            'Publish',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              letterSpacing: 2.2,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

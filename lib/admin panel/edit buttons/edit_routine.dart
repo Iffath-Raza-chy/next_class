@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:next_class/admin%20panel/constantforRoutine.dart';
+import 'package:next_class/admin%20panel/z_constantforRoutine.dart';
 import 'package:next_class/constants.dart';
 
 class EditRoutine extends StatefulWidget {
-  String id;
-  EditRoutine({Key? key, required this.id}) : super(key: key);
+  final String id;
+  const EditRoutine({Key? key, required this.id}) : super(key: key);
 
   @override
   _EditRoutineState createState() => _EditRoutineState();
@@ -40,6 +40,7 @@ class _EditRoutineState extends State<EditRoutine> {
     return Container(
       padding: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 20),
       child: Material(
+        color: Colors.blue[50],
         borderRadius: BorderRadius.circular(10),
         child: Stack(
           children: [
@@ -145,7 +146,7 @@ class _EditRoutineState extends State<EditRoutine> {
                                               validator: (value) {
                                                 if (value == null ||
                                                     value.isEmpty) {
-                                                  return 'Please Enter Email';
+                                                  return 'Subject Cant be Empty';
                                                 }
                                                 return null;
                                               },
@@ -160,7 +161,7 @@ class _EditRoutineState extends State<EditRoutine> {
                                               onChanged: (value) =>
                                                   teacher = value,
                                               decoration: InputDecoration(
-                                                labelText: 'Name: ',
+                                                labelText: 'Teacher: ',
                                                 labelStyle:
                                                     TextStyle(fontSize: 20.0),
                                                 border: OutlineInputBorder(),
@@ -171,7 +172,7 @@ class _EditRoutineState extends State<EditRoutine> {
                                               validator: (value) {
                                                 if (value == null ||
                                                     value.isEmpty) {
-                                                  return 'Please Enter Name';
+                                                  return 'Please Enter Teacher Name';
                                                 }
                                                 return null;
                                               },
@@ -186,7 +187,7 @@ class _EditRoutineState extends State<EditRoutine> {
                                               onChanged: (value) =>
                                                   type = value,
                                               decoration: InputDecoration(
-                                                labelText: 'Type: ',
+                                                labelText: 'Delivery Type: ',
                                                 labelStyle:
                                                     TextStyle(fontSize: 20.0),
                                                 border: OutlineInputBorder(),
@@ -197,7 +198,7 @@ class _EditRoutineState extends State<EditRoutine> {
                                               validator: (value) {
                                                 if (value == null ||
                                                     value.isEmpty) {
-                                                  return 'Please Enter Name';
+                                                  return 'Please Enter Delivery type';
                                                 }
                                                 return null;
                                               },
@@ -223,7 +224,7 @@ class _EditRoutineState extends State<EditRoutine> {
                                               validator: (value) {
                                                 if (value == null ||
                                                     value.isEmpty) {
-                                                  return 'Please Enter Name';
+                                                  return 'Please Enter 24 hour format time';
                                                 }
                                                 return null;
                                               },
@@ -248,8 +249,10 @@ class _EditRoutineState extends State<EditRoutine> {
                                               ),
                                               validator: (value) {
                                                 if (value == null ||
-                                                    value.isEmpty) {
-                                                  return 'Please Enter Password';
+                                                    value.isEmpty ||
+                                                    int.parse(value) < 0 ||
+                                                    int.parse(value) > 24) {
+                                                  return 'Please Enter Hour Between 0-24';
                                                 }
                                                 return null;
                                               },
@@ -274,8 +277,10 @@ class _EditRoutineState extends State<EditRoutine> {
                                               ),
                                               validator: (value) {
                                                 if (value == null ||
-                                                    value.isEmpty) {
-                                                  return 'Please Enter Password';
+                                                    value.isEmpty ||
+                                                    int.parse(value) > 59 ||
+                                                    int.parse(value) < 0) {
+                                                  return 'Please Enter Minute Between 0-59';
                                                 }
                                                 return null;
                                               },
@@ -300,7 +305,7 @@ class _EditRoutineState extends State<EditRoutine> {
                                                     primary: Colors.blue[300]),
                                               ),
                                               OutlinedButton(
-                                                onPressed: () {
+                                                onPressed: () async {
                                                   // Validate returns true if the form is valid, otherwise false.
                                                   if (_updateRoutineFormKey
                                                       .currentState!

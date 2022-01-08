@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:next_class/constants.dart';
 
 class EditAssignment extends StatefulWidget {
-  String id;
-  EditAssignment({Key? key, required this.id}) : super(key: key);
+  final String id;
+  const EditAssignment({Key? key, required this.id}) : super(key: key);
 
   @override
   _EditAssignmentState createState() => _EditAssignmentState();
@@ -20,17 +20,20 @@ class _EditAssignmentState extends State<EditAssignment> {
         .doc(id)
         .update({'name': name, 'sub': sub, 'time': time})
         .then((value) => snackb = 1)
-        .catchError((error) => print('Error'));
+        .catchError(
+          (error) => print('Error'),
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 200),
+      padding: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 100),
       child: Column(
         children: [
           Material(
             borderRadius: BorderRadius.circular(20),
+            color: Colors.blue[50],
             child: Stack(
               children: [
                 Positioned(
@@ -45,12 +48,17 @@ class _EditAssignmentState extends State<EditAssignment> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 30, left: 5, right: 5),
+                  padding: const EdgeInsets.only(
+                      top: 30, left: 5, right: 5, bottom: 50),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
                         Center(
-                          child: Text('Edit Assignment Data'),
+                          child: Text(
+                            'Edit Assignment Details',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
                         ),
                         SizedBox(
                           height: 30,
@@ -77,6 +85,7 @@ class _EditAssignmentState extends State<EditAssignment> {
                                       ),
                                       OutlinedButton(
                                         onPressed: () {
+                                          Navigator.pop(context);
                                           setState(() {});
                                         },
                                         child: Text('Try Again'),
@@ -105,7 +114,7 @@ class _EditAssignmentState extends State<EditAssignment> {
                                       autofocus: false,
                                       onChanged: (value) => name = value,
                                       decoration: InputDecoration(
-                                        labelText: 'Name: ',
+                                        labelText: 'Assignment Name: ',
                                         labelStyle: TextStyle(fontSize: 20.0),
                                         border: OutlineInputBorder(),
                                         errorStyle: TextStyle(
@@ -114,7 +123,7 @@ class _EditAssignmentState extends State<EditAssignment> {
                                       ),
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
-                                          return 'Please Enter Name';
+                                          return 'Please Enter Assignment Name';
                                         }
                                         return null;
                                       },
@@ -128,7 +137,7 @@ class _EditAssignmentState extends State<EditAssignment> {
                                       autofocus: false,
                                       onChanged: (value) => sub = value,
                                       decoration: InputDecoration(
-                                        labelText: 'Subject: ',
+                                        labelText: 'Subject Name: ',
                                         labelStyle: TextStyle(fontSize: 20.0),
                                         border: OutlineInputBorder(),
                                         errorStyle: TextStyle(
@@ -137,7 +146,7 @@ class _EditAssignmentState extends State<EditAssignment> {
                                       ),
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
-                                          return 'Please Enter Email';
+                                          return 'Please Enter Subject Name';
                                         }
                                         return null;
                                       },
@@ -160,7 +169,7 @@ class _EditAssignmentState extends State<EditAssignment> {
                                       ),
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
-                                          return 'Please Enter Password';
+                                          return 'Please Set a Deadline';
                                         }
                                         return null;
                                       },

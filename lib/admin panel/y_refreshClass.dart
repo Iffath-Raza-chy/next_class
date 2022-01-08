@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:next_class/admin%20panel/build_routine_manager.dart';
+
+import 'manager/routine_build.dart';
 
 class DayMonday extends StatefulWidget {
   const DayMonday({Key? key}) : super(key: key);

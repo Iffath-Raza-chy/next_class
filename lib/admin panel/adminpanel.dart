@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:next_class/admin%20panel/routine_manager.dart';
-import 'package:next_class/admin%20panel/assignment_manager.dart';
-import 'package:next_class/admin%20panel/exam_manager.dart';
-import 'package:next_class/admin%20panel/user_registration.dart';
+import 'package:next_class/admin%20panel/manager/assignment_manager.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/widgets/build_classes2.dart';
+
+import 'manager/exam_manager.dart';
+import 'manager/routine_manager.dart';
+import 'manager/user_registration.dart';
 
 class AdminPanel extends StatefulWidget {
   const AdminPanel({Key? key}) : super(key: key);

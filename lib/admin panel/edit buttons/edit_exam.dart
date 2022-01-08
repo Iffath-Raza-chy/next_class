@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:next_class/constants.dart';
 
 class EditExam extends StatefulWidget {
-  String id;
-  EditExam({Key? key, required this.id}) : super(key: key);
+  final String id;
+  const EditExam({Key? key, required this.id}) : super(key: key);
 
   @override
   _EditExamState createState() => _EditExamState();
@@ -28,6 +28,7 @@ class _EditExamState extends State<EditExam> {
     return Container(
       padding: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 280),
       child: Material(
+        color: Colors.blue[50],
         borderRadius: BorderRadius.circular(20),
         child: Stack(
           children: [
@@ -106,7 +107,7 @@ class _EditExamState extends State<EditExam> {
                                   autofocus: false,
                                   onChanged: (value) => type = value,
                                   decoration: InputDecoration(
-                                    labelText: 'Type: ',
+                                    labelText: 'Exam Name: ',
                                     labelStyle: TextStyle(fontSize: 20.0),
                                     border: OutlineInputBorder(),
                                     errorStyle: TextStyle(
@@ -114,7 +115,7 @@ class _EditExamState extends State<EditExam> {
                                   ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return 'Please Enter Exam Type';
+                                      return 'Please Enter Exam Name';
                                     }
                                     return null;
                                   },
@@ -135,7 +136,7 @@ class _EditExamState extends State<EditExam> {
                                   ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return 'Please Enter Email';
+                                      return 'Please Enter Subject Name';
                                     }
                                     return null;
                                   },
@@ -156,7 +157,7 @@ class _EditExamState extends State<EditExam> {
                                   ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return 'Please Enter Password';
+                                      return 'Please Enter Exam Date';
                                     }
                                     return null;
                                   },

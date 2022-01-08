@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:next_class/admin%20panel/constantforRoutine.dart';
+import 'package:next_class/admin%20panel/z_constantforRoutine.dart';
 
 class AddRoutine extends StatefulWidget {
   const AddRoutine({Key? key}) : super(key: key);
@@ -33,6 +33,7 @@ class _AddRoutineState extends State<AddRoutine> {
   final routineTeacherController = TextEditingController();
   final routineClassLinkController = TextEditingController();
 
+  @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     routineTypeController.dispose();
@@ -257,7 +258,7 @@ class _AddRoutineState extends State<AddRoutine> {
                                 }
                                 if (int.parse(value) > 20 ||
                                     int.parse(value) < 0) {
-                                  return 'Enter between 0-24 only';
+                                  return 'Hour Must Be 0-24';
                                 }
                               },
                             ),
