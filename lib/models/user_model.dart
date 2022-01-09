@@ -45,6 +45,7 @@ class Storage {
       await storage.ref('profilepics/$fileName').putFile(file);
       imgurl = await storage.ref('profilepics/$fileName').getDownloadURL();
     } on FirebaseException catch (e) {
+      // ignore: avoid_print
       print(e);
     }
   }

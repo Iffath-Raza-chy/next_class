@@ -1,13 +1,13 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:next_class/models/user_model.dart';
 import 'package:next_class/screens/profile.dart';
-import 'package:path/path.dart' as p;
 
 class ChooseImage extends StatefulWidget {
   const ChooseImage({Key? key}) : super(key: key);

@@ -6,7 +6,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/widgets/countdown_painter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Examination extends StatefulWidget {
   const Examination({Key? key}) : super(key: key);
@@ -268,12 +267,12 @@ class _ExaminationState extends State<Examination> {
     return kHourColor;
   }
 
-  _launchURL() async {
-    const url = 'https://flutter.io';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+  // _launchURL() async {
+  //   const url = 'https://flutter.io';
+  //   if (await canLaunch(url)) {
+  //     await launch(url);
+  //   } else {
+  //     throw 'Could not launch $url';
+  //   }
+  // }
 }

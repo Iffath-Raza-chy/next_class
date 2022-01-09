@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:next_class/admin%20panel/z_constantforRoutine.dart';
+import 'package:next_class/admin%20panel/z_constantforroutine.dart';
 
 class AddRoutine extends StatefulWidget {
   const AddRoutine({Key? key}) : super(key: key);
@@ -13,7 +13,6 @@ class AddRoutine extends StatefulWidget {
 class _AddRoutineState extends State<AddRoutine> {
   CollectionReference exam = FirebaseFirestore.instance.collection(dayn);
 
-  late DateTime _examDateTime;
   late TimeOfDay _examTime;
   final _addRoutineFormKey = GlobalKey<FormState>();
   var type = "";

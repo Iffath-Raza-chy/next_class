@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:next_class/admin%20panel/z_constantforRoutine.dart';
+import 'package:next_class/admin%20panel/z_constantforroutine.dart';
 import 'package:next_class/constants.dart';
 
 class EditRoutine extends StatefulWidget {
@@ -18,21 +18,17 @@ class _EditRoutineState extends State<EditRoutine> {
 
   Future<void> updateRoutine(
       id, sub, teacher, type, time, timehour, timeminute, classlink) {
-    return updateRoutineCollection
-        .doc(id)
-        .update(
-          {
-            'classlink': classlink,
-            'sub': sub,
-            'teacher': teacher,
-            'time': time,
-            'timehour': int.parse(timehour),
-            'timeminute': int.parse(timeminute),
-            'type': type,
-          },
-        )
-        .then((value) => snackb = 1)
-        .catchError((error) => print('Error'));
+    return updateRoutineCollection.doc(id).update(
+      {
+        'classlink': classlink,
+        'sub': sub,
+        'teacher': teacher,
+        'time': time,
+        'timehour': int.parse(timehour),
+        'timeminute': int.parse(timeminute),
+        'type': type,
+      },
+    ).then((value) => snackb = 1);
   }
 
   @override

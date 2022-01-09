@@ -85,7 +85,10 @@ class _UserRegistrationState extends State<UserRegistration> {
                     ),
                     tileColor: Theme.of(context).secondaryHeaderColor,
                     dense: true,
-                    leading: Image.asset("assets/icons/LoginIcon.png"),
+                    leading: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(userstoredocs[index]['imageurl']),
+                    ),
                     title: Text(
                       userstoredocs[index]['name'],
                       style: TextStyle(

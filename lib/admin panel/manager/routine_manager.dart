@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:next_class/admin%20panel/addButton%20pages/add_routine.dart';
-import 'package:next_class/admin%20panel/z_constantforRoutine.dart';
-import 'package:next_class/admin%20panel/y_refreshClass.dart';
+import 'package:next_class/admin%20panel/z_constantforroutine.dart';
+import 'package:next_class/admin%20panel/y_refreshclass.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/widgets/build_classes2.dart';
 

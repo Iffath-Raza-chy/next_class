@@ -16,13 +16,8 @@ class _EditAssignmentState extends State<EditAssignment> {
       FirebaseFirestore.instance.collection('assignment');
 
   Future<void> updateAssign(id, name, sub, time) {
-    return updateAssignstudents
-        .doc(id)
-        .update({'name': name, 'sub': sub, 'time': time})
-        .then((value) => snackb = 1)
-        .catchError(
-          (error) => print('Error'),
-        );
+    return updateAssignstudents.doc(id).update(
+        {'name': name, 'sub': sub, 'time': time}).then((value) => snackb = 1);
   }
 
   @override

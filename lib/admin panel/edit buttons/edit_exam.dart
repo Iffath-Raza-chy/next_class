@@ -18,11 +18,8 @@ class _EditExamState extends State<EditExam> {
         FirebaseFirestore.instance.collection('exam');
 
     Future<void> updateExam(id, type, sub, time) {
-      return updateExamstudents
-          .doc(id)
-          .update({'type': type, 'sub': sub, 'time': time})
-          .then((value) => snackb = 1)
-          .catchError((error) => print('Error'));
+      return updateExamstudents.doc(id).update(
+          {'type': type, 'sub': sub, 'time': time}).then((value) => snackb = 1);
     }
 
     return Container(

@@ -263,22 +263,22 @@ class _AssignmentState extends State<Assignment> {
     );
   }
 
-  _todoButton(homework) {
-    return RaisedButton(
-      onPressed: () {
-        setState(() {
-          homework.isDone = !homework.isDone;
-        });
-      },
-      shape: CircleBorder(
-        side: BorderSide(color: Theme.of(context).secondaryHeaderColor),
-      ),
-      color: homework.isDone
-          ? Theme.of(context).secondaryHeaderColor
-          : Colors.transparent,
-      child: homework.isDone ? Icon(Icons.check, color: Colors.white) : null,
-    );
-  }
+  // _todoButton(homework) {
+  //   return RaisedButton(
+  //     onPressed: () {
+  //       setState(() {
+  //         homework.isDone = !homework.isDone;
+  //       });
+  //     },
+  //     shape: CircleBorder(
+  //       side: BorderSide(color: Theme.of(context).secondaryHeaderColor),
+  //     ),
+  //     color: homework.isDone
+  //         ? Theme.of(context).secondaryHeaderColor
+  //         : Colors.transparent,
+  //     child: homework.isDone ? Icon(Icons.check, color: Colors.white) : null,
+  //   );
+  // }
 
   _getColor(BuildContext context, double percent) {
     if (percent >= 0.4) return Theme.of(context).colorScheme.secondary;

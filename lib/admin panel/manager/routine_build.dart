@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:next_class/admin%20panel/z_constantforRoutine.dart';
+import 'package:next_class/admin%20panel/z_constantforroutine.dart';
 import 'package:next_class/admin%20panel/edit%20buttons/edit_routine.dart';
 
 
@@ -82,7 +82,6 @@ class _BuildClassesForRoutineManagerState
   Widget build(BuildContext context) {
     dayn = dayname(routineGCounter).toLowerCase();
     var dwidth = MediaQuery.of(context).size.width;
-    var dhight = MediaQuery.of(context).size.height;
     routineGCounter = DateTime.now().weekday.toInt();
     return StreamBuilder<QuerySnapshot>(
       stream: routineClassStream,

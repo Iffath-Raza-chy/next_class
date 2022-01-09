@@ -220,14 +220,12 @@ class _ProfileState extends State<Profile> {
               ),
             ],
           ),
-          logedInUser.email == 'admin@admin.com'
-              ? ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AdminPanel()));
-                  },
-                  child: Text("AdminPanel"))
-              : Container(),
+          logedInUser.email=='admin@admin.com'?ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AdminPanel()));
+              },
+              child: Text("AdminPanel")):Container(),
         ],
       ),
       backgroundColor: Theme.of(context).backgroundColor,
