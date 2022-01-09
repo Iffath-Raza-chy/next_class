@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:next_class/admin%20panel/manager/assignment_manager.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/widgets/build_classes2.dart';

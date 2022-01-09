@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+late File pickedImage;
 late DateFormat dateFormat = DateFormat("hh:mm a");
 var gCounter = DateTime.now().weekday.toInt();
 var gCounter2 = DateTime.now().weekday.toInt();

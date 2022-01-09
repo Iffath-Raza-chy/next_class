@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/screens/classes_screen.dart';
@@ -43,6 +44,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
     gCounter2 = now.weekday.toInt();
 
     ccnt = 0;
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(

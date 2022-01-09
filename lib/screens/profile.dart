@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:next_class/admin%20panel/adminpanel.dart';
 import 'package:next_class/models/user_model.dart';
+import 'package:next_class/screens/chooseimage.dart';
 import 'package:next_class/screens/login_page.dart';
 import 'package:next_class/widgets/bottom_navigation.dart';
 
@@ -20,14 +21,12 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    FirebaseFirestore.instance
-        .collection("users")
-        .doc(user!.uid)
-        .get()
-        .then((value) {
-      logedInUser = UserModel.fromMap(value.data());
-      setState(() {});
-    });
+    FirebaseFirestore.instance.collection("users").doc(user!.uid).get().then(
+      (value) {
+        logedInUser = UserModel.fromMap(value.data());
+        setState(() {});
+      },
+    );
   }
 
   @override
@@ -58,7 +57,9 @@ class _ProfileState extends State<Profile> {
               Icons.settings,
               color: Colors.black,
             ),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {});
+            },
           ),
         ],
       ),
@@ -94,25 +95,33 @@ class _ProfileState extends State<Profile> {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage("assets/images/profile_pic.jpg"),
+                      image: NetworkImage(logedInUser.imageurl.toString()),
                     ),
                   ),
                 ),
                 Positioned(
                   bottom: 0,
                   right: 0,
-                  child: Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                          width: 4,
-                          color: Theme.of(context).secondaryHeaderColor),
-                      color: Colors.green,
-                    ),
-                    child: Icon(Icons.edit),
-                  ),
+                  child: InkWell(
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              width: 4,
+                              color: Theme.of(context).secondaryHeaderColor),
+                          color: Colors.green,
+                        ),
+                        child: Icon(Icons.edit),
+                      ),
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                  content: ChooseImage(),
+                                ));
+                      }),
                 ),
               ],
             ),
@@ -211,12 +220,14 @@ class _ProfileState extends State<Profile> {
               ),
             ],
           ),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AdminPanel()));
-              },
-              child: Text("AdminPanel")),
+          logedInUser.email == 'admin@admin.com'
+              ? ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AdminPanel()));
+                  },
+                  child: Text("AdminPanel"))
+              : Container(),
         ],
       ),
       backgroundColor: Theme.of(context).backgroundColor,

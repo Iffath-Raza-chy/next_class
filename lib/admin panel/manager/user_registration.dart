@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:next_class/admin%20panel/addButton%20pages/add_users.dart';
 
 class UserRegistration extends StatefulWidget {
   const UserRegistration({Key? key}) : super(key: key);
@@ -9,60 +10,106 @@ class UserRegistration extends StatefulWidget {
 }
 
 class _UserRegistrationState extends State<UserRegistration> {
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference allUsers = FirebaseFirestore.instance.collection('users');
+  final Stream<QuerySnapshot> usersStream = FirebaseFirestore.instance
+      .collection('users')
+      .orderBy('name')
+      .snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).secondaryHeaderColor,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back),
-        ),
+        title: Text('User Registration'),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: Container(
-              padding: EdgeInsets.all(3),
-              decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
-                borderRadius: BorderRadius.circular(35),
-              ),
-              child: Icon(Icons.add),
-            ),
-          ),
-        ],
-      ),
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: Column(
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Enter',
-              fillColor: Colors.white,
-              filled: true,
-            ),
-            onChanged: (value) {},
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              users.add(
-                {
-                  'name': 'Islam Rafat',
-                  'email': 'iffatheaza@gmail.com',
-                  'batch': '47',
-                  'dob': '10-03-1999',
-                },
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => AddUsers(),
               );
             },
-            child: Text('submit'),
-          ),
+            icon: Icon(Icons.add),
+          )
         ],
+      ),
+      body: StreamBuilder(
+        stream: usersStream,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            Center(
+              child: Column(
+                children: [
+                  Text(
+                    'Something Went Wrong!',
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                    child: Text('Try Again'),
+                  )
+                ],
+              ),
+            );
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          final List userstoredocs = [];
+          snapshot.data!.docs.map(
+            (DocumentSnapshot document) {
+              Map a = document.data() as Map<String, dynamic>;
+              userstoredocs.add(a);
+              a['id'] = document.id;
+            },
+          ).toList();
+
+          return ListView.builder(
+            itemCount: userstoredocs.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: const EdgeInsets.only(
+                  top: 5,
+                ),
+                child: Card(
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    tileColor: Theme.of(context).secondaryHeaderColor,
+                    dense: true,
+                    leading: Image.asset("assets/icons/LoginIcon.png"),
+                    title: Text(
+                      userstoredocs[index]['name'],
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(userstoredocs[index]['email']),
+                        Text(userstoredocs[index]['dob']),
+                        Text(userstoredocs[index]['batch']),
+                      ],
+                    ),
+                    trailing: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.edit),
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
       ),
     );
   }
