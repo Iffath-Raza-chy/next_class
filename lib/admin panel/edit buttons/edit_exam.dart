@@ -17,13 +17,20 @@ class _EditExamState extends State<EditExam> {
     CollectionReference updateExamstudents =
         FirebaseFirestore.instance.collection('exam');
 
-    Future<void> updateExam(id, type, sub, time) {
-      return updateExamstudents.doc(id).update(
-          {'type': type, 'sub': sub, 'time': time}).then((value) => snackb = 1);
+    Future<void> updateExam(id, type, sub, time, deltype, hour, min, examlink) {
+      return updateExamstudents.doc(id).update({
+        'type': type,
+        'sub': sub,
+        'time': time,
+        'deltype': deltype,
+        'hour': int.parse(hour),
+        'min': int.parse(min),
+        'examlink': examlink
+      }).then((value) => snackb = 1);
     }
 
     return Container(
-      padding: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 280),
+      padding: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 50),
       child: Material(
         color: Colors.blue[50],
         borderRadius: BorderRadius.circular(20),
@@ -95,6 +102,10 @@ class _EditExamState extends State<EditExam> {
                           var type = data!['type'];
                           var sub = data['sub'];
                           var time = data['time'];
+                          var deltype = data['deltype'];
+                          var examlink = data['examlink'];
+                          var hour = data['hour'].toString();
+                          var min = data['minute'].toString();
                           return Column(
                             children: [
                               Container(
@@ -126,6 +137,90 @@ class _EditExamState extends State<EditExam> {
                                   onChanged: (value) => sub = value,
                                   decoration: InputDecoration(
                                     labelText: 'Subject: ',
+                                    labelStyle: TextStyle(fontSize: 20.0),
+                                    border: OutlineInputBorder(),
+                                    errorStyle: TextStyle(
+                                        color: Colors.redAccent, fontSize: 15),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Enter Subject Name';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 10.0),
+                                child: TextFormField(
+                                  initialValue: deltype,
+                                  autofocus: false,
+                                  onChanged: (value) => deltype = value,
+                                  decoration: InputDecoration(
+                                    labelText: 'Submission Method: ',
+                                    labelStyle: TextStyle(fontSize: 20.0),
+                                    border: OutlineInputBorder(),
+                                    errorStyle: TextStyle(
+                                        color: Colors.redAccent, fontSize: 15),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Enter Subject Name';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 10.0),
+                                child: TextFormField(
+                                  initialValue: hour,
+                                  autofocus: false,
+                                  onChanged: (value) => hour = value,
+                                  decoration: InputDecoration(
+                                    labelText: 'Duration (hour): ',
+                                    labelStyle: TextStyle(fontSize: 20.0),
+                                    border: OutlineInputBorder(),
+                                    errorStyle: TextStyle(
+                                        color: Colors.redAccent, fontSize: 15),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Enter Hour';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 10.0),
+                                child: TextFormField(
+                                  initialValue: min,
+                                  autofocus: false,
+                                  onChanged: (value) => min = value,
+                                  decoration: InputDecoration(
+                                    labelText: 'Duration (Minute): ',
+                                    labelStyle: TextStyle(fontSize: 20.0),
+                                    border: OutlineInputBorder(),
+                                    errorStyle: TextStyle(
+                                        color: Colors.redAccent, fontSize: 15),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Enter Minute';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 10.0),
+                                child: TextFormField(
+                                  initialValue: examlink,
+                                  autofocus: false,
+                                  onChanged: (value) => examlink = value,
+                                  decoration: InputDecoration(
+                                    labelText: 'Exam Link: ',
                                     labelStyle: TextStyle(fontSize: 20.0),
                                     border: OutlineInputBorder(),
                                     errorStyle: TextStyle(
@@ -183,7 +278,8 @@ class _EditExamState extends State<EditExam> {
                                       // Validate returns true if the form is valid, otherwise false.
                                       if (_updateExamFormKey.currentState!
                                           .validate()) {
-                                        updateExam(widget.id, type, sub, time);
+                                        updateExam(widget.id, type, sub, time,
+                                            deltype, hour, min, examlink);
                                         Navigator.pop(context);
                                         if (snackb > 0) {
                                           ScaffoldMessenger.of(context)

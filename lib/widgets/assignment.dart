@@ -1,10 +1,13 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe, deprecated_member_use
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
+import 'package:next_class/models/user_model.dart';
+import 'package:next_class/screens/chooseimage.dart';
 import 'package:next_class/widgets/countdown_painter.dart';
 
 class Assignment extends StatefulWidget {
@@ -22,6 +25,8 @@ class _AssignmentState extends State<Assignment> {
 
   @override
   Widget build(BuildContext context) {
+    var path;
+    var fileName;
     return Column(
       children: [
         Text(
@@ -68,17 +73,40 @@ class _AssignmentState extends State<Assignment> {
             snapshot.data!.docs.map((DocumentSnapshot document) {
               Map b = document.data() as Map<String, dynamic>;
               assignstoredocs.add(b);
+              b['id'] = document.id;
             }).toList();
             return ListView.builder(
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,
               itemCount: assignstoredocs.length,
               itemBuilder: (BuildContext context, int index) {
+                String howmany = "";
                 DateTime alert = DateTime.parse(assignstoredocs[index]['time']);
                 int hoursLeft = now.difference(alert).inHours;
+                int minsleft = now.difference(alert).inMinutes;
+                int daysleft = now.difference(alert).inDays;
                 hoursLeft = hoursLeft < 0 ? -hoursLeft : 0;
+                minsleft = minsleft < 0 ? -minsleft : 0;
+                daysleft = daysleft < 0 ? -daysleft : 0;
                 double percent = hoursLeft / 48;
-                if (hoursLeft > 0) {
+
+                int countdown;
+                hoursLeft <= 0 && daysleft <= 0
+                    ? countdown = minsleft
+                    : countdown = hoursLeft;
+                hoursLeft > 24 ? countdown = daysleft : countdown = hoursLeft;
+                if (minsleft < 60 && minsleft > 0) {
+                  countdown = minsleft;
+                }
+                if (hoursLeft <= 0 && daysleft <= 0) {
+                  howmany = "mins";
+                } else if (hoursLeft > 24) {
+                  howmany = "days";
+                } else {
+                  howmany = "hours";
+                }
+                if ((hoursLeft >= 0 || minsleft >= 0 || daysleft >= 0) &&
+                    assignstoredocs[index]['issubmitted'] == 'no') {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -164,7 +192,41 @@ class _AssignmentState extends State<Assignment> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       OutlinedButton(
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          final resutls = await FilePicker
+                                              .platform
+                                              .pickFiles(
+                                            allowMultiple: false,
+                                            type: FileType.any,
+                                            allowCompression: true,
+                                          );
+                                          if (resutls != null) {
+                                            setState(
+                                              () {
+                                                path =
+                                                    resutls.files.single.path;
+                                                fileName =
+                                                    resutls.files.single.name;
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                        'File Picked, Now Submit'),
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          }
+
+                                          if (resutls == null) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text('No File Picked'),
+                                              ),
+                                            );
+                                          }
+                                        },
                                         child: Text("Choose a file"),
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.blueGrey[100],
@@ -172,7 +234,7 @@ class _AssignmentState extends State<Assignment> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 30,
+                                        width: 20,
                                       ),
                                       ElevatedButton(
                                         style: ElevatedButton.styleFrom(
@@ -185,7 +247,26 @@ class _AssignmentState extends State<Assignment> {
                                                 BorderRadius.circular(30),
                                           ),
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          setState(() {
+                                            FirebaseFirestore.instance
+                                                .collection('assignment')
+                                                .doc(assignstoredocs[index]
+                                                    ['id'])
+                                                .update({
+                                              'issubmitted': 'yes'
+                                            }).then((value) => ScaffoldMessenger
+                                                        .of(context)
+                                                    .showSnackBar(SnackBar(
+                                                        backgroundColor:
+                                                            Colors.green,
+                                                        content: Text(
+                                                          'Assignmetn Submited',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ))));
+                                          });
+                                        },
                                         child: Text("Submit"),
                                       )
                                     ],
@@ -213,35 +294,69 @@ class _AssignmentState extends State<Assignment> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: <Widget>[
-                                        Text(
-                                          "$hoursLeft",
-                                          style: TextStyle(
-                                            color: _getColor(context, percent),
-                                            fontSize: ((MediaQuery.of(context)
-                                                            .size
-                                                            .height *
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width) /
-                                                    2) *
-                                                .0002,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                        Text(
-                                          "hours left",
-                                          style: TextStyle(
-                                            color: _getColor(context, percent),
-                                            fontSize: ((MediaQuery.of(context)
-                                                            .size
-                                                            .height *
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width) /
-                                                    2) *
-                                                .00007,
-                                          ),
-                                        ),
+                                        DateTime.now().isBefore(DateTime.parse(
+                                                assignstoredocs[index]['time']))
+                                            ? Text(
+                                                "$countdown",
+                                                style: TextStyle(
+                                                  color: _getColor(
+                                                      context, percent),
+                                                  fontSize: ((MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width) /
+                                                          2) *
+                                                      .0002,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              )
+                                            : assignstoredocs[index]
+                                                        ['issubmitted'] ==
+                                                    'no'
+                                                ? Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      'Missing',
+                                                      style: TextStyle(
+                                                          color: Colors.red),
+                                                    ),
+                                                  )
+                                                : Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      'Submitted',
+                                                      style: TextStyle(
+                                                          color: Colors.green),
+                                                    ),
+                                                  ),
+                                        DateTime.now().isAfter(DateTime.parse(
+                                                assignstoredocs[index]['time']))
+                                            ? Container()
+                                            : Text(
+                                                "$howmany left",
+                                                style: TextStyle(
+                                                  color: _getColor(
+                                                      context, percent),
+                                                  fontSize: ((MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width) /
+                                                          2) *
+                                                      .00007,
+                                                ),
+                                              ),
                                       ],
                                     ),
                                   ),

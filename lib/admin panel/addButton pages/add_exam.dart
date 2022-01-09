@@ -21,10 +21,18 @@ class _AddExamState extends State<AddExam> {
   var time = "";
   var date = "";
   var finaltime = "";
+  var hour = "";
+  var min = "";
+  var deltype = "";
+  var examlink = "";
 
   final examTypeController = TextEditingController();
   final examSubController = TextEditingController();
   final examTimeController = TextEditingController();
+  final examHourController = TextEditingController();
+  final examMinController = TextEditingController();
+  final examDeltypeController = TextEditingController();
+  final examExamlinkController = TextEditingController();
 
   @override
   void dispose() {
@@ -32,6 +40,10 @@ class _AddExamState extends State<AddExam> {
     examTypeController.dispose();
     examSubController.dispose();
     examTimeController.dispose();
+    examHourController.dispose();
+    examMinController.dispose();
+    examDeltypeController.dispose();
+    examExamlinkController.dispose();
     super.dispose();
   }
 
@@ -39,12 +51,24 @@ class _AddExamState extends State<AddExam> {
     examTypeController.clear();
     examSubController.clear();
     examTimeController.clear();
+    examHourController.clear();
+    examMinController.clear();
+    examDeltypeController.clear();
+    examExamlinkController.clear();
   }
 
   Future<void> addExam() {
     finaltime = date + " " + time;
     return exam
-        .add({'type': type, 'sub': sub, 'time': finaltime})
+        .add({
+          'type': type,
+          'sub': sub,
+          'time': finaltime,
+          'hour': int.parse(hour),
+          'minute': int.parse(min),
+          'deltype': deltype,
+          'examlink': examlink,
+        })
         .then(
           (value) => showDialog(
             barrierDismissible: true,
@@ -159,6 +183,103 @@ class _AddExamState extends State<AddExam> {
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Enter Exam Type';
+                                    }
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(15.0),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Duration (hour 0-24)",
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    errorStyle: TextStyle(
+                                        color: Colors.red, fontSize: 15),
+                                  ),
+                                  controller: examHourController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Enter hour';
+                                    }
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(15.0),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Duration (Minute 0-59)",
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    errorStyle: TextStyle(
+                                        color: Colors.red, fontSize: 15),
+                                  ),
+                                  controller: examMinController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Enter Minute';
+                                    }
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(15.0),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText:
+                                        "Submission Method(Email/Google Form/Offline)",
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    errorStyle: TextStyle(
+                                        color: Colors.red, fontSize: 15),
+                                  ),
+                                  controller: examDeltypeController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Enter Submission Method(Offline/Email/Google Form)';
+                                    }
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(15.0),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Exam Link (If any)",
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    errorStyle: TextStyle(
+                                        color: Colors.red, fontSize: 15),
+                                  ),
+                                  controller: examExamlinkController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      deltype = "";
                                     }
                                   },
                                 ),
@@ -323,6 +444,12 @@ class _AddExamState extends State<AddExam> {
                                               sub = examSubController.text;
                                               finaltime =
                                                   examTimeController.text;
+                                              hour = examHourController.text;
+                                              min = examMinController.text;
+                                              deltype =
+                                                  examDeltypeController.text;
+                                              examlink =
+                                                  examExamlinkController.text;
                                               addExam();
                                               clearText();
 

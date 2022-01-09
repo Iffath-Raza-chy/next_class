@@ -143,17 +143,19 @@ class _ExamManagerState extends State<ExamManager> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
                             Text(
                               'Subject',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
                             ),
-                            Text(
-                              'Type',
-                              style: TextStyle(color: Colors.white),
+                            Text(' : '),
+                            Flexible(
+                              child: Text(
+                                assignstoredocs[index]['sub'],
+                                style: TextStyle(fontSize: 15),
+                              ),
                             ),
                           ],
                         ),
@@ -161,21 +163,106 @@ class _ExamManagerState extends State<ExamManager> {
                           height: 5,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Flexible(
-                              child: Text(
-                                assignstoredocs[index]['sub'],
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
+                            Text(
+                              'Type',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
                             ),
+                            Text(' : '),
                             Flexible(
                               child: Text(
                                 assignstoredocs[index]['type'],
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                                  fontSize: 15,
+                                ),
                               ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Submission Method',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                            Text(' : '),
+                            Flexible(
+                              child: Text(
+                                assignstoredocs[index]['deltype'],
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Sub Link',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                            Text(' : '),
+                            Flexible(
+                              child: Text(
+                                assignstoredocs[index]['examlink'],
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Duration',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                            Text(' : '),
+                            Flexible(
+                              child: Text(
+                                '${assignstoredocs[index]['hour']} hour ',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              child: Text(
+                                '${assignstoredocs[index]['minute']} minutes',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: Text(
+                                'Exam Time',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            Text(' : '),
+                            Text(
+                              DateFormat('E, d/M/yyyy (h:mm a)').format(
+                                  DateTime.parse(
+                                      assignstoredocs[index]['time'])),
+                              style: TextStyle(fontSize: 15),
                             ),
                           ],
                         ),
@@ -191,12 +278,6 @@ class _ExamManagerState extends State<ExamManager> {
                                 );
                               },
                               icon: Icon(Icons.edit),
-                            ),
-                            Text(
-                              DateFormat('E, d/M/yyyy (h:mm a)').format(
-                                  DateTime.parse(
-                                      assignstoredocs[index]['time'])),
-                              style: TextStyle(fontSize: 15),
                             ),
                             IconButton(
                               onPressed: () {
@@ -252,12 +333,6 @@ class _ExamManagerState extends State<ExamManager> {
                               icon: Icon(Icons.delete),
                             ),
                           ],
-                        ),
-                        Center(
-                          child: Text(
-                            'Exam Time',
-                            style: TextStyle(color: Colors.white),
-                          ),
                         ),
                       ],
                     ),

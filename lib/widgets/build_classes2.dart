@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:next_class/constants.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BuildClasses2 extends StatefulWidget {
   const BuildClasses2({Key? key}) : super(key: key);
@@ -277,9 +278,31 @@ class _BuildClasses2State extends State<BuildClasses2> {
                                 SizedBox(width: 8.0),
                                 InkWell(
                                   splashColor: Colors.green,
-                                  onTap: () {},
+                                  onTap: () async {
+                                    final url = storedocs[index]['classlink'];
+                                    if (await canLaunch(url) && ishappening()) {
+                                      await launch(url);
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          duration: Duration(milliseconds: 500),
+                                          behavior: SnackBarBehavior.floating,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(24),
+                                          ),
+                                          backgroundColor: Colors.blue,
+                                          content: Text(
+                                            'Link will be activated during class',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  },
                                   child: Text(
-                                    "Google Meet",
+                                    "Class Link",
                                     style: TextStyle(
                                       color: ispassed()
                                           ? Colors.blue.withOpacity(0.3)

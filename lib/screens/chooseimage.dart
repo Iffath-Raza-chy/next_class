@@ -64,30 +64,32 @@ class _ChooseImageState extends State<ChooseImage> {
         ElevatedButton(
           onPressed: () async {
             if (path != null) {
-              setState(() {
-                a = 1;
-                storage.uploadFile(path!, fileName).then(
-                      (value) => FirebaseFirestore.instance
-                          .collection("users")
-                          .doc(user!.uid)
-                          .update({'imageurl': imgurl})
-                          .then(
-                            (value) =>
-                                ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: Colors.green,
-                                content: Text(
-                                  'Successfully Uploaded',
-                                  textAlign: TextAlign.center,
+              setState(
+                () {
+                  a = 1;
+                  storage.uploadFile(path!, fileName).then(
+                        (value) => FirebaseFirestore.instance
+                            .collection("users")
+                            .doc(user!.uid)
+                            .update({'imageurl': imgurl})
+                            .then(
+                              (value) =>
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: Colors.green,
+                                  content: Text(
+                                    'Successfully Uploaded',
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                               ),
+                            )
+                            .then(
+                              (value) => Navigator.pop(context),
                             ),
-                          )
-                          .then(
-                            (value) => Navigator.pop(context),
-                          ),
-                    );
-              });
+                      );
+                },
+              );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -101,7 +103,6 @@ class _ChooseImageState extends State<ChooseImage> {
           },
           child: Text('Upload'),
         ),
-        a > 0 ? Center(child: CircularProgressIndicator()) : Container(),
       ],
     );
   }
