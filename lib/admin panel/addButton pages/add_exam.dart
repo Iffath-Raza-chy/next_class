@@ -68,6 +68,7 @@ class _AddExamState extends State<AddExam> {
           'minute': int.parse(min),
           'deltype': deltype,
           'examlink': examlink,
+          'notshowd': 'no'
         })
         .then(
           (value) => showDialog(
@@ -168,7 +169,7 @@ class _AddExamState extends State<AddExam> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                     contentPadding: EdgeInsets.only(bottom: 3),
-                                    labelText: "Exam Type",
+                                    labelText: "Exam Name",
                                     floatingLabelBehavior:
                                         FloatingLabelBehavior.always,
                                     border: OutlineInputBorder(

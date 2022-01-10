@@ -5,10 +5,13 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
 import 'package:next_class/widgets/countdown_painter.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../main.dart';
 
 class Examination extends StatefulWidget {
   const Examination({Key? key}) : super(key: key);
@@ -86,6 +89,7 @@ class _ExaminationState extends State<Examination> {
               snapshot.data!.docs.map((DocumentSnapshot document) {
                 Map c = document.data() as Map<String, dynamic>;
                 examstoredocs.add(c);
+                c['id'] = document.id;
               }).toList();
 
               return ListView.builder(
@@ -125,6 +129,26 @@ class _ExaminationState extends State<Examination> {
                   if (minsLeft > 0 ||
                       (DateTime.now().isBefore(isstarted) &&
                           DateTime.now().isAfter(alert))) {
+                    if (examstoredocs[index]['notshowd'] == 'no') {
+                      flutterLocNotPlug.show(
+                        0,
+                        'New ${examstoredocs[index]['type']} of ${examstoredocs[index]['sub']}',
+                        examstoredocs[index]['time'],
+                        NotificationDetails(
+                          android: AndroidNotificationDetails(
+                              channel.id, channel.name,
+                              channelDescription: channel.description,
+                              importance: Importance.high,
+                              color: Theme.of(context).secondaryHeaderColor,
+                              playSound: true,
+                              icon: '@mipmap/ic_launcher'),
+                        ),
+                      );
+                      FirebaseFirestore.instance
+                          .collection('exam')
+                          .doc(examstoredocs[index]['id'])
+                          .update({'notshowd': 'yes'});
+                    }
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[

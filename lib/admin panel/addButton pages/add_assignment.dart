@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -47,7 +45,14 @@ class _AddAssignmentState extends State<AddAssignment> {
   Future<void> addUser() {
     finaltime = date + " " + time;
     return assignemnt
-        .add({'name': name, 'sub': sub, 'time': finaltime})
+        .add({
+          'name': name,
+          'sub': sub,
+          'time': finaltime,
+          'notshowd': 'no',
+          'issubmitted': 'no',
+          'sublink': ''
+        })
         .then(
           (value) => showDialog(
             context: context,

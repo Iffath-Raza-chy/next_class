@@ -65,6 +65,7 @@ class _AddRoutineState extends State<AddRoutine> {
           'timehour': int.parse(timehour),
           'timeminute': int.parse(timeminute),
           'type': type,
+          'notshowd': 'no'
         })
         .then(
           (value) => showDialog(

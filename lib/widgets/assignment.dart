@@ -4,11 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
-import 'package:next_class/models/user_model.dart';
-import 'package:next_class/screens/chooseimage.dart';
 import 'package:next_class/widgets/countdown_painter.dart';
+
+import '../main.dart';
 
 class Assignment extends StatefulWidget {
   const Assignment({Key? key}) : super(key: key);
@@ -107,6 +108,26 @@ class _AssignmentState extends State<Assignment> {
                 }
                 if ((hoursLeft >= 0 || minsleft >= 0 || daysleft >= 0) &&
                     assignstoredocs[index]['issubmitted'] == 'no') {
+                  if (assignstoredocs[index]['notshowd'] == 'no') {
+                    flutterLocNotPlug.show(
+                      0,
+                      'New Assignment for ${assignstoredocs[index]['sub']}',
+                      assignstoredocs[index]['time'],
+                      NotificationDetails(
+                        android: AndroidNotificationDetails(
+                            channel.id, channel.name,
+                            channelDescription: channel.description,
+                            importance: Importance.high,
+                            color: Theme.of(context).secondaryHeaderColor,
+                            playSound: true,
+                            icon: '@mipmap/ic_launcher'),
+                      ),
+                    );
+                    FirebaseFirestore.instance
+                        .collection('assignment')
+                        .doc(assignstoredocs[index]['id'])
+                        .update({'notshowd': 'yes'});
+                  }
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[

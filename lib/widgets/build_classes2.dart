@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:next_class/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../main.dart';
 
 class BuildClasses2 extends StatefulWidget {
   const BuildClasses2({Key? key}) : super(key: key);
@@ -80,6 +83,7 @@ class _BuildClasses2State extends State<BuildClasses2> {
         snapshot.data!.docs.map((DocumentSnapshot document) {
           Map a = document.data() as Map<String, dynamic>;
           storedocs.add(a);
+          a['id'] = document.id;
         }).toList();
         if (storedocs.isEmpty) {
           return Column(
@@ -141,6 +145,32 @@ class _BuildClasses2State extends State<BuildClasses2> {
                 }
               }
 
+              if (ishappening() && storedocs[index]['notshowd'] == 'no') {
+                flutterLocNotPlug.show(
+                  0,
+                  'Class Started',
+                  storedocs[index]['sub'],
+                  NotificationDetails(
+                    android: AndroidNotificationDetails(
+                        channel.id, channel.name,
+                        channelDescription: channel.description,
+                        importance: Importance.high,
+                        color: Theme.of(context).secondaryHeaderColor,
+                        playSound: true,
+                        icon: '@mipmap/ic_launcher'),
+                  ),
+                );
+                FirebaseFirestore.instance
+                    .collection(dayname(gCounter).toLowerCase())
+                    .doc(storedocs[index]['id'])
+                    .update({'notshowd': 'yes'});
+              }
+              if (ispassed()) {
+                FirebaseFirestore.instance
+                    .collection(dayname(gCounter).toLowerCase())
+                    .doc(storedocs[index]['id'])
+                    .update({'notshowd': 'no'});
+              }
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
