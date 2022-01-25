@@ -63,8 +63,9 @@ class _ExamManagerState extends State<ExamManager> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).secondaryHeaderColor,
         title: Center(
-          child: Text('Exam Lists'),
+          child: Text('Exam Manager'),
         ),
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);

@@ -21,6 +21,7 @@ class _UserRegistrationState extends State<UserRegistration> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).secondaryHeaderColor,
         title: Text('User Registration'),
+        centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {

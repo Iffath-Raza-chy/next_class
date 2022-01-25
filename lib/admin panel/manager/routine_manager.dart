@@ -19,6 +19,8 @@ class _RoutineManagerState extends State<RoutineManager> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).secondaryHeaderColor,
+        title: Text('Routine Manager'),
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
