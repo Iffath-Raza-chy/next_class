@@ -7,6 +7,7 @@ import 'package:next_class/screens/chooseimage.dart';
 import 'package:next_class/screens/login_page.dart';
 import 'package:next_class/widgets/bottom_navigation.dart';
 
+
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
