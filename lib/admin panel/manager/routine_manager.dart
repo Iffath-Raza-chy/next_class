@@ -7,7 +7,7 @@ import 'package:next_class/constants.dart';
 import 'package:next_class/widgets/build_classes2.dart';
 
 class RoutineManager extends StatefulWidget {
-  const RoutineManager({Key? key}) : super(key: key);
+  const RoutineManager({super.key});
 
   @override
   _RoutineManagerState createState() => _RoutineManagerState();
@@ -26,7 +26,7 @@ class _RoutineManagerState extends State<RoutineManager> {
             Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back),
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
         actions: [
           IconButton(
@@ -37,7 +37,7 @@ class _RoutineManagerState extends State<RoutineManager> {
             icon: Container(
               padding: EdgeInsets.all(3),
               decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(35),
               ),
               child: Icon(Icons.add),
@@ -45,7 +45,7 @@ class _RoutineManagerState extends State<RoutineManager> {
           ),
         ],
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: [
           Padding(

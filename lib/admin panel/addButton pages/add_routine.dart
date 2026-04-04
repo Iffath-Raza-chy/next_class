@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:next_class/admin%20panel/z_constantforroutine.dart';
 
 class AddRoutine extends StatefulWidget {
-  const AddRoutine({Key? key}) : super(key: key);
+  const AddRoutine({super.key});
 
   @override
   _AddRoutineState createState() => _AddRoutineState();
@@ -106,7 +106,7 @@ class _AddRoutineState extends State<AddRoutine> {
           actions: [
             OutlinedButton(
               style: ElevatedButton.styleFrom(
-                primary: Theme.of(context).secondaryHeaderColor,
+                backgroundColor: Theme.of(context).secondaryHeaderColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -184,6 +184,7 @@ class _AddRoutineState extends State<AddRoutine> {
                                 if (value == null || value.isEmpty) {
                                   return 'Please Enter Subject Name';
                                 }
+                                return null;
                               },
                             ),
                           ),
@@ -208,6 +209,7 @@ class _AddRoutineState extends State<AddRoutine> {
                                 if (value == null || value.isEmpty) {
                                   return 'Please Enter Teacher Name';
                                 }
+                                return null;
                               },
                             ),
                           ),
@@ -232,6 +234,7 @@ class _AddRoutineState extends State<AddRoutine> {
                                 if (value == null || value.isEmpty) {
                                   return 'Please Enter Class Delevry Type';
                                 }
+                                return null;
                               },
                             ),
                           ),
@@ -260,6 +263,7 @@ class _AddRoutineState extends State<AddRoutine> {
                                     int.parse(value) < 0) {
                                   return 'Hour Must Be 0-24';
                                 }
+                                return null;
                               },
                             ),
                           ),
@@ -288,6 +292,7 @@ class _AddRoutineState extends State<AddRoutine> {
                                     int.parse(value) < 0) {
                                   return 'Minute Must be 1-59';
                                 }
+                                return null;
                               },
                             ),
                           ),
@@ -312,6 +317,7 @@ class _AddRoutineState extends State<AddRoutine> {
                                 if (value == null || value.isEmpty) {
                                   return 'Please Provide a Class Link';
                                 }
+                                return null;
                               },
                             ),
                           ),
@@ -349,7 +355,7 @@ class _AddRoutineState extends State<AddRoutine> {
                                           ? "Pick a class Time"
                                           : DateFormat("hh:mm a").format(
                                               DateTime.parse(
-                                                  "0000-00-00 " + time)),
+                                                  "0000-00-00 $time")),
                                       labelStyle: TextStyle(),
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always,
@@ -366,6 +372,7 @@ class _AddRoutineState extends State<AddRoutine> {
                                       if (time.isEmpty) {
                                         return 'Please Choose a Time';
                                       }
+                                      return null;
                                     },
                                   ),
                                 ),

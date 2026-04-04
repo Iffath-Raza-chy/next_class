@@ -48,7 +48,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -155,7 +155,7 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primaryColor: Color(0xFF202328),
               secondaryHeaderColor: Color(0xFF63CF93),
-              backgroundColor: Color(0xFF12171D),
+              scaffoldBackgroundColor: Color(0xFF12171D),
               visualDensity: VisualDensity.adaptivePlatformDensity,
               appBarTheme:
                   AppBarTheme(systemOverlayStyle: SystemUiOverlayStyle.dark),

@@ -9,7 +9,7 @@ import 'manager/routine_manager.dart';
 import 'manager/user_registration.dart';
 
 class AdminPanel extends StatefulWidget {
-  const AdminPanel({Key? key}) : super(key: key);
+  const AdminPanel({super.key});
 
   @override
   _AdminPanelState createState() => _AdminPanelState();
@@ -69,7 +69,7 @@ class _AdminPanelState extends State<AdminPanel> {
           }
 
           return Container(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
               child: Column(

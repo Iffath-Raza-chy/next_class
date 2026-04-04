@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 
 class BuildClasses2 extends StatefulWidget {
-  const BuildClasses2({Key? key}) : super(key: key);
+  const BuildClasses2({super.key});
   @override
   _BuildClasses2State createState() => _BuildClasses2State();
 }
@@ -40,7 +40,7 @@ String dayname(int a) {
 }
 
 class _BuildClasses2State extends State<BuildClasses2> {
-  DatabaseReference scoresRef = FirebaseDatabase.instance.reference();
+  DatabaseReference scoresRef = FirebaseDatabase.instance.ref();
 
   final Stream<QuerySnapshot> classStream = FirebaseFirestore.instance
       .collection(dayname(gCounter).toLowerCase())
@@ -112,7 +112,7 @@ class _BuildClasses2State extends State<BuildClasses2> {
             itemBuilder: (BuildContext context, int index) {
               var dateWOtime = DateFormat('yyyy-MM-dd').format(now);
               var dateWtime = storedocs[index]['time'].toString();
-              var finaltime = dateWOtime + " " + dateWtime + ":00";
+              var finaltime = "$dateWOtime $dateWtime:00";
               var classtime = DateTime.parse(finaltime);
               var startTime = DateTime.parse(finaltime);
               var addedtime = startTime

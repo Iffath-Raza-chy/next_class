@@ -4,7 +4,7 @@ import 'package:next_class/constants.dart';
 
 class EditAssignment extends StatefulWidget {
   final String id;
-  const EditAssignment({Key? key, required this.id}) : super(key: key);
+  const EditAssignment({super.key, required this.id});
 
   @override
   _EditAssignmentState createState() => _EditAssignmentState();
@@ -178,6 +178,8 @@ class _EditAssignmentState extends State<EditAssignment> {
                                         onPressed: () {
                                           setState(() {});
                                         },
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.blue[300]),
                                         child: Text(
                                           'Reset',
                                           style: TextStyle(
@@ -185,8 +187,6 @@ class _EditAssignmentState extends State<EditAssignment> {
                                             color: Colors.white,
                                           ),
                                         ),
-                                        style: ElevatedButton.styleFrom(
-                                            primary: Colors.blue[300]),
                                       ),
                                       OutlinedButton(
                                         onPressed: () {
@@ -213,15 +213,15 @@ class _EditAssignmentState extends State<EditAssignment> {
                                             }
                                           }
                                         },
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Theme.of(context)
+                                                .secondaryHeaderColor),
                                         child: Text(
                                           'Update',
                                           style: TextStyle(
                                               fontSize: 18.0,
                                               color: Colors.white),
                                         ),
-                                        style: ElevatedButton.styleFrom(
-                                            primary: Theme.of(context)
-                                                .secondaryHeaderColor),
                                       ),
                                     ],
                                   )

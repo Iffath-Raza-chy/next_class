@@ -10,7 +10,7 @@ import 'package:next_class/screens/notice_screen.dart';
 import 'package:next_class/screens/test_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({Key? key}) : super(key: key);
+  const BottomNavigation({super.key});
 
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
@@ -47,7 +47,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: <Widget>[
           _currentPage,
@@ -94,7 +94,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     ? Theme.of(context).secondaryHeaderColor
                     : kTextColor,
               ),
-              title: SizedBox.shrink(),
+              label: '',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
@@ -104,7 +104,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     ? Theme.of(context).secondaryHeaderColor
                     : kTextColor,
               ),
-              title: SizedBox.shrink(),
+              label: '',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
@@ -114,7 +114,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     ? Theme.of(context).secondaryHeaderColor
                     : kTextColor,
               ),
-              title: SizedBox.shrink(),
+              label: '',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
@@ -124,7 +124,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     ? Theme.of(context).secondaryHeaderColor
                     : kTextColor,
               ),
-              title: SizedBox.shrink(),
+              label: '',
             ),
           ],
         ),

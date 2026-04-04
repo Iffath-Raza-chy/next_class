@@ -6,7 +6,7 @@ import 'package:next_class/admin%20panel/edit%20buttons/edit_routine.dart';
 
 
 class BuildClassesForRoutineManager extends StatefulWidget {
-  const BuildClassesForRoutineManager({Key? key}) : super(key: key);
+  const BuildClassesForRoutineManager({super.key});
   @override
   _BuildClassesForRoutineManagerState createState() =>
       _BuildClassesForRoutineManagerState();
@@ -150,10 +150,7 @@ class _BuildClassesForRoutineManagerState
               itemCount: routinestoredocs.length,
               itemBuilder: (BuildContext context, int index) {
                 String duration =
-                    routinestoredocs[index]['timehour'].toString() +
-                        ":" +
-                        routinestoredocs[index]['timeminute'].toString() +
-                        " hr";
+                    "${routinestoredocs[index]['timehour']}:${routinestoredocs[index]['timeminute']} hr";
                 time = "0000-00-00 " + routinestoredocs[index]['time'] + ":00";
                 time = DateFormat('hh:ss a').format(DateTime.parse(time));
 
@@ -274,7 +271,7 @@ class _BuildClassesForRoutineManagerState
                                     actions: [
                                       OutlinedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: Colors.green,
+                                          backgroundColor: Colors.green,
                                         ),
                                         onPressed: () {
                                           Navigator.pop(context);
@@ -286,7 +283,7 @@ class _BuildClassesForRoutineManagerState
                                       ),
                                       OutlinedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: Colors.red,
+                                          backgroundColor: Colors.red,
                                         ),
                                         onPressed: () {
                                           deleteRoutine(

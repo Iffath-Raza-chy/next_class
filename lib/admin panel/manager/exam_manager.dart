@@ -5,7 +5,7 @@ import 'package:next_class/admin%20panel/addButton%20pages/add_exam.dart';
 import 'package:next_class/admin%20panel/edit%20buttons/edit_exam.dart';
 
 class ExamManager extends StatefulWidget {
-  const ExamManager({Key? key}) : super(key: key);
+  const ExamManager({super.key});
 
   @override
   _ExamManagerState createState() => _ExamManagerState();
@@ -59,7 +59,7 @@ class _ExamManagerState extends State<ExamManager> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).secondaryHeaderColor,
         title: Center(
@@ -77,7 +77,7 @@ class _ExamManagerState extends State<ExamManager> {
             icon: Container(
               padding: EdgeInsets.all(3),
               decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(35),
               ),
               child: Icon(Icons.add),
@@ -303,7 +303,7 @@ class _ExamManagerState extends State<ExamManager> {
                                     actions: [
                                       OutlinedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: Colors.green,
+                                          backgroundColor: Colors.green,
                                         ),
                                         onPressed: () {
                                           Navigator.pop(context);
@@ -315,7 +315,7 @@ class _ExamManagerState extends State<ExamManager> {
                                       ),
                                       OutlinedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: Colors.red,
+                                          backgroundColor: Colors.red,
                                         ),
                                         onPressed: () {
                                           deleteExam(

@@ -6,7 +6,7 @@ import 'package:next_class/admin%20panel/edit%20buttons/edit_assignment.dart';
 
 
 class AssignmentManager extends StatefulWidget {
-  const AssignmentManager({Key? key}) : super(key: key);
+  const AssignmentManager({super.key});
 
   @override
   _AssignmentManagerState createState() => _AssignmentManagerState();
@@ -74,7 +74,7 @@ class _AssignmentManagerState extends State<AssignmentManager> {
             icon: Container(
               padding: EdgeInsets.all(3),
               decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(35),
               ),
               child: Icon(Icons.add),
@@ -89,7 +89,7 @@ class _AssignmentManagerState extends State<AssignmentManager> {
           ),
         ],
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: StreamBuilder<QuerySnapshot>(
         stream: addAssignStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -219,7 +219,7 @@ class _AssignmentManagerState extends State<AssignmentManager> {
                                     actions: [
                                       OutlinedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: Colors.green,
+                                          backgroundColor: Colors.green,
                                         ),
                                         onPressed: () {
                                           Navigator.pop(context);
@@ -231,7 +231,7 @@ class _AssignmentManagerState extends State<AssignmentManager> {
                                       ),
                                       OutlinedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: Colors.red,
+                                          backgroundColor: Colors.red,
                                         ),
                                         onPressed: () {
                                           deleteAssignment(

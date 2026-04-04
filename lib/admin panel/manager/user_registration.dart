@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:next_class/admin%20panel/addButton%20pages/add_users.dart';
 
 class UserRegistration extends StatefulWidget {
-  const UserRegistration({Key? key}) : super(key: key);
+  const UserRegistration({super.key});
 
   @override
   _UserRegistrationState createState() => _UserRegistrationState();

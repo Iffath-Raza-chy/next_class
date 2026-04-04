@@ -6,7 +6,7 @@ import 'package:next_class/screens/welcome_screen.dart';
 import 'package:next_class/widgets/bottom_navigation.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -63,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Center(
           child: Text(
@@ -242,7 +242,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: Theme.of(context).secondaryHeaderColor),
+                            backgroundColor: Theme.of(context).secondaryHeaderColor),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             setState(

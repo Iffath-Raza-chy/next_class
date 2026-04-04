@@ -9,7 +9,7 @@ import 'package:next_class/widgets/bottom_navigation.dart';
 
 
 class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+  const Profile({super.key});
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -212,7 +212,7 @@ class _ProfileState extends State<Profile> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).secondaryHeaderColor,
+                  backgroundColor: Theme.of(context).secondaryHeaderColor,
                 ),
                 onPressed: () {
                   logout(context);
@@ -221,7 +221,7 @@ class _ProfileState extends State<Profile> {
               ),
             ],
           ),
-          logedInUser.email=='admin@admin.com'?ElevatedButton(
+          logedInUser.email=='iffathraza@gmail.com'?ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => AdminPanel()));
@@ -229,7 +229,7 @@ class _ProfileState extends State<Profile> {
               child: Text("AdminPanel")):Container(),
         ],
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     );
   }
 

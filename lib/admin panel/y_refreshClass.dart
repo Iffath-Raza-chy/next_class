@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'manager/routine_build.dart';
 
 class DayMonday extends StatefulWidget {
-  const DayMonday({Key? key}) : super(key: key);
+  const DayMonday({super.key});
 
   @override
   _DayMondayState createState() => _DayMondayState();
@@ -17,7 +17,7 @@ class _DayMondayState extends State<DayMonday> {
 }
 
 class DayTuesday extends StatefulWidget {
-  const DayTuesday({Key? key}) : super(key: key);
+  const DayTuesday({super.key});
 
   @override
   _DayTuesdayState createState() => _DayTuesdayState();
@@ -31,7 +31,7 @@ class _DayTuesdayState extends State<DayTuesday> {
 }
 
 class DayWednesday extends StatefulWidget {
-  const DayWednesday({Key? key}) : super(key: key);
+  const DayWednesday({super.key});
 
   @override
   _DayWednesdayState createState() => _DayWednesdayState();
@@ -45,7 +45,7 @@ class _DayWednesdayState extends State<DayWednesday> {
 }
 
 class DayThursday extends StatefulWidget {
-  const DayThursday({Key? key}) : super(key: key);
+  const DayThursday({super.key});
 
   @override
   _DayThursdayState createState() => _DayThursdayState();
@@ -59,7 +59,7 @@ class _DayThursdayState extends State<DayThursday> {
 }
 
 class DayFriday extends StatefulWidget {
-  const DayFriday({Key? key}) : super(key: key);
+  const DayFriday({super.key});
 
   @override
   _DayFridayState createState() => _DayFridayState();
@@ -73,7 +73,7 @@ class _DayFridayState extends State<DayFriday> {
 }
 
 class DaySaturday extends StatefulWidget {
-  const DaySaturday({Key? key}) : super(key: key);
+  const DaySaturday({super.key});
 
   @override
   _DaySaturdayState createState() => _DaySaturdayState();
@@ -87,7 +87,7 @@ class _DaySaturdayState extends State<DaySaturday> {
 }
 
 class DaySunday extends StatefulWidget {
-  const DaySunday({Key? key}) : super(key: key);
+  const DaySunday({super.key});
 
   @override
   _DaySundayState createState() => _DaySundayState();

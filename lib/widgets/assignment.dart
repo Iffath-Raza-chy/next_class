@@ -3,7 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
@@ -12,7 +11,7 @@ import 'package:next_class/widgets/countdown_painter.dart';
 import '../main.dart';
 
 class Assignment extends StatefulWidget {
-  const Assignment({Key? key}) : super(key: key);
+  const Assignment({super.key});
 
   @override
   _AssignmentState createState() => _AssignmentState();
@@ -26,8 +25,8 @@ class _AssignmentState extends State<Assignment> {
 
   @override
   Widget build(BuildContext context) {
-    var path;
-    var fileName;
+    String? path;
+    String fileName;
     return Column(
       children: [
         Text(
@@ -158,7 +157,7 @@ class _AssignmentState extends State<Assignment> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Icon(
-                                        AntDesign.book,
+                                        Icons.book,
                                         color: Theme.of(context)
                                             .secondaryHeaderColor,
                                         size: 17.0,
@@ -184,7 +183,7 @@ class _AssignmentState extends State<Assignment> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Icon(
-                                        AntDesign.clockcircle,
+                                        Icons.access_time,
                                         color: Theme.of(context)
                                             .secondaryHeaderColor,
                                         size: 17.0,
@@ -248,18 +247,18 @@ class _AssignmentState extends State<Assignment> {
                                             );
                                           }
                                         },
-                                        child: Text("Choose a file"),
                                         style: ElevatedButton.styleFrom(
-                                          primary: Colors.blueGrey[100],
+                                          backgroundColor: Colors.blueGrey[100],
                                           minimumSize: Size(40, 25),
                                         ),
+                                        child: Text("Choose a file"),
                                       ),
                                       SizedBox(
                                         width: 20,
                                       ),
                                       ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: Theme.of(context)
+                                          backgroundColor: Theme.of(context)
                                               .secondaryHeaderColor,
                                           padding: EdgeInsets.all(10),
                                           minimumSize: Size(10.0, 10.0),

@@ -10,7 +10,7 @@ import 'package:next_class/models/user_model.dart';
 import 'package:next_class/screens/profile.dart';
 
 class ChooseImage extends StatefulWidget {
-  const ChooseImage({Key? key}) : super(key: key);
+  const ChooseImage({super.key});
 
   @override
   _ChooseImageState createState() => _ChooseImageState();

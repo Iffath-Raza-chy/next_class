@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AddUsers extends StatefulWidget {
-  const AddUsers({Key? key}) : super(key: key);
+  const AddUsers({super.key});
 
   @override
   _AddUsersState createState() => _AddUsersState();
@@ -67,20 +67,7 @@ class _AddUsersState extends State<AddUsers> {
               },
             );
 
-        copiedText = 'Name: ' +
-            name +
-            '\n' +
-            'Batch: ' +
-            batch +
-            '\n' +
-            'Date Of Birth: ' +
-            dob +
-            '\n' +
-            'Email: ' +
-            emailController.text +
-            '\n' +
-            'Password: ' +
-            passwordController.text;
+        copiedText = 'Name: $name\nBatch: $batch\nDate Of Birth: $dob\nEmail: ${emailController.text}\nPassword: ${passwordController.text}';
 
         showDialog(
           context: context,

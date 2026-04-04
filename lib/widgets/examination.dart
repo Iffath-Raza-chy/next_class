@@ -1,10 +1,8 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
-import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
@@ -14,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 
 class Examination extends StatefulWidget {
-  const Examination({Key? key}) : super(key: key);
+  const Examination({super.key});
 
   @override
   _ExaminationState createState() => _ExaminationState();
@@ -212,7 +210,7 @@ class _ExaminationState extends State<Examination> {
                                     Row(
                                       children: <Widget>[
                                         Icon(
-                                          AntDesign.clockcircle,
+                                          Icons.access_time,
                                           color: Theme.of(context)
                                               .secondaryHeaderColor,
                                           size: 17.0,

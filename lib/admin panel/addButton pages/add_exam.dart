@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
 
 class AddExam extends StatefulWidget {
-  const AddExam({Key? key}) : super(key: key);
+  const AddExam({super.key});
 
   @override
   _AddExamState createState() => _AddExamState();
@@ -58,7 +58,7 @@ class _AddExamState extends State<AddExam> {
   }
 
   Future<void> addExam() {
-    finaltime = date + " " + time;
+    finaltime = "$date $time";
     return exam
         .add({
           'type': type,
@@ -161,6 +161,7 @@ class _AddExamState extends State<AddExam> {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Enter Subject Name';
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -185,6 +186,7 @@ class _AddExamState extends State<AddExam> {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Enter Exam Type';
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -209,6 +211,7 @@ class _AddExamState extends State<AddExam> {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Enter hour';
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -233,6 +236,7 @@ class _AddExamState extends State<AddExam> {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Enter Minute';
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -258,6 +262,7 @@ class _AddExamState extends State<AddExam> {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Enter Submission Method(Offline/Email/Google Form)';
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -282,6 +287,7 @@ class _AddExamState extends State<AddExam> {
                                     if (value == null || value.isEmpty) {
                                       deltype = "";
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -295,7 +301,7 @@ class _AddExamState extends State<AddExam> {
                                           EdgeInsets.only(bottom: 3),
                                       hintText: time.isEmpty
                                           ? "Pick an Exam Date"
-                                          : date + " " + time,
+                                          : "$date $time",
                                       labelStyle: TextStyle(),
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always,
@@ -312,6 +318,7 @@ class _AddExamState extends State<AddExam> {
                                       if (date.isEmpty || time.isEmpty) {
                                         return 'Please Choose a Time';
                                       }
+                                      return null;
                                     },
                                   ),
                                 ),
@@ -325,7 +332,7 @@ class _AddExamState extends State<AddExam> {
                                   children: [
                                     OutlinedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Colors.blue,
+                                        backgroundColor: Colors.blue,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(5),
@@ -358,7 +365,7 @@ class _AddExamState extends State<AddExam> {
                                     ),
                                     OutlinedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Colors.blue,
+                                        backgroundColor: Colors.blue,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(5),
@@ -428,7 +435,7 @@ class _AddExamState extends State<AddExam> {
                                     ),
                                     OutlinedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Theme.of(context)
+                                        backgroundColor: Theme.of(context)
                                             .secondaryHeaderColor,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -440,7 +447,7 @@ class _AddExamState extends State<AddExam> {
                                             .validate()) {
                                           setState(
                                             () {
-                                              finaltime = date + " " + time;
+                                              finaltime = "$date $time";
                                               type = examTypeController.text;
                                               sub = examSubController.text;
                                               finaltime =

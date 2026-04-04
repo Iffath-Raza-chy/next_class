@@ -6,7 +6,7 @@ import 'package:next_class/widgets/header.dart';
 import '../main.dart';
 
 class NoticeScreen extends StatefulWidget {
-  const NoticeScreen({Key? key}) : super(key: key);
+  const NoticeScreen({super.key});
 
   @override
   _NoticeScreenState createState() => _NoticeScreenState();

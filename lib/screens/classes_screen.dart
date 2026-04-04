@@ -6,7 +6,7 @@ import 'package:next_class/widgets/header.dart';
 import 'package:intl/intl.dart';
 
 class ClassesScreen extends StatefulWidget {
-  const ClassesScreen({Key? key}) : super(key: key);
+  const ClassesScreen({super.key});
 
   @override
   _ClassesScreenState createState() => _ClassesScreenState();

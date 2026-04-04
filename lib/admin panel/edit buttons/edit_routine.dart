@@ -5,7 +5,7 @@ import 'package:next_class/constants.dart';
 
 class EditRoutine extends StatefulWidget {
   final String id;
-  const EditRoutine({Key? key, required this.id}) : super(key: key);
+  const EditRoutine({super.key, required this.id});
 
   @override
   _EditRoutineState createState() => _EditRoutineState();
@@ -290,6 +290,8 @@ class _EditRoutineState extends State<EditRoutine> {
                                                 onPressed: () {
                                                   setState(() {});
                                                 },
+                                                style: ElevatedButton.styleFrom(
+                                                    backgroundColor: Colors.blue[300]),
                                                 child: Text(
                                                   'Reset',
                                                   style: TextStyle(
@@ -297,8 +299,6 @@ class _EditRoutineState extends State<EditRoutine> {
                                                     color: Colors.white,
                                                   ),
                                                 ),
-                                                style: ElevatedButton.styleFrom(
-                                                    primary: Colors.blue[300]),
                                               ),
                                               OutlinedButton(
                                                 onPressed: () async {
@@ -337,15 +337,15 @@ class _EditRoutineState extends State<EditRoutine> {
                                                     }
                                                   }
                                                 },
+                                                style: ElevatedButton.styleFrom(
+                                                    backgroundColor: Theme.of(context)
+                                                        .secondaryHeaderColor),
                                                 child: Text(
                                                   'Update',
                                                   style: TextStyle(
                                                       fontSize: 18.0,
                                                       color: Colors.white),
                                                 ),
-                                                style: ElevatedButton.styleFrom(
-                                                    primary: Theme.of(context)
-                                                        .secondaryHeaderColor),
                                               ),
                                             ],
                                           )

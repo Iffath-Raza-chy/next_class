@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:next_class/constants.dart';
 
 class AddAssignment extends StatefulWidget {
-  const AddAssignment({Key? key}) : super(key: key);
+  const AddAssignment({super.key});
 
   @override
   _AddAssignmentState createState() => _AddAssignmentState();
@@ -43,7 +43,7 @@ class _AddAssignmentState extends State<AddAssignment> {
   }
 
   Future<void> addUser() {
-    finaltime = date + " " + time;
+    finaltime = "$date $time";
     return assignemnt
         .add({
           'name': name,
@@ -152,6 +152,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Enter Subject Name';
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -176,6 +177,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Enter Assignment Name';
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -189,7 +191,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                                           EdgeInsets.only(bottom: 3),
                                       hintText: time.isEmpty
                                           ? "Pick a Deadline"
-                                          : date + " " + time,
+                                          : "$date $time",
                                       labelStyle: TextStyle(),
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always,
@@ -206,6 +208,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                                       if (date.isEmpty || time.isEmpty) {
                                         return 'Please Enter a Deadline';
                                       }
+                                      return null;
                                     },
                                   ),
                                 ),
@@ -219,7 +222,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                                   children: [
                                     OutlinedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Colors.blue,
+                                        backgroundColor: Colors.blue,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(5),
@@ -252,7 +255,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                                     ),
                                     OutlinedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Colors.blue,
+                                        backgroundColor: Colors.blue,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(5),
@@ -322,7 +325,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                                     ),
                                     OutlinedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Theme.of(context)
+                                        backgroundColor: Theme.of(context)
                                             .secondaryHeaderColor,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -334,7 +337,7 @@ class _AddAssignmentState extends State<AddAssignment> {
                                             .validate()) {
                                           setState(
                                             () {
-                                              finaltime = date + " " + time;
+                                              finaltime = "$date $time";
                                               name = assignNameController.text;
                                               sub = assignsubController.text;
                                               finaltime =

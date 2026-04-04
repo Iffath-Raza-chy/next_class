@@ -7,7 +7,7 @@ import 'package:next_class/widgets/bottom_navigation.dart';
 import 'login_page.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
+  const WelcomeScreen({super.key});
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
@@ -23,7 +23,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(50.0),
             bottomRight: Radius.circular(50.0),

@@ -4,7 +4,7 @@ import 'package:next_class/widgets/header.dart';
 import 'package:next_class/widgets/examination.dart';
 
 class TestScreen extends StatefulWidget {
-  const TestScreen({Key? key}) : super(key: key);
+  const TestScreen({super.key});
 
   @override
   _TestScreenState createState() => _TestScreenState();

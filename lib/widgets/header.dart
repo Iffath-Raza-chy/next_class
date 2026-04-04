@@ -8,7 +8,7 @@ import 'package:next_class/screens/login_page.dart';
 import 'package:next_class/screens/profile.dart';
 
 class Header extends StatefulWidget {
-  const Header({Key? key}) : super(key: key);
+  const Header({super.key});
 
   @override
   _HeaderState createState() => _HeaderState();

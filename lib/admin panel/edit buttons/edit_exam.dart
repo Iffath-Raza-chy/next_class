@@ -4,7 +4,7 @@ import 'package:next_class/constants.dart';
 
 class EditExam extends StatefulWidget {
   final String id;
-  const EditExam({Key? key, required this.id}) : super(key: key);
+  const EditExam({super.key, required this.id});
 
   @override
   _EditExamState createState() => _EditExamState();
@@ -13,7 +13,7 @@ class EditExam extends StatefulWidget {
 class _EditExamState extends State<EditExam> {
   @override
   Widget build(BuildContext context) {
-    final _updateExamFormKey = GlobalKey<FormState>();
+    final updateExamFormKey = GlobalKey<FormState>();
     CollectionReference updateExamstudents =
         FirebaseFirestore.instance.collection('exam');
 
@@ -63,7 +63,7 @@ class _EditExamState extends State<EditExam> {
                       height: 30,
                     ),
                     Form(
-                      key: _updateExamFormKey,
+                      key: updateExamFormKey,
                       child:
                           FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                         future: FirebaseFirestore.instance
@@ -263,6 +263,8 @@ class _EditExamState extends State<EditExam> {
                                     onPressed: () {
                                       setState(() {});
                                     },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.blue[300]),
                                     child: Text(
                                       'Reset',
                                       style: TextStyle(
@@ -270,13 +272,11 @@ class _EditExamState extends State<EditExam> {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.blue[300]),
                                   ),
                                   OutlinedButton(
                                     onPressed: () {
                                       // Validate returns true if the form is valid, otherwise false.
-                                      if (_updateExamFormKey.currentState!
+                                      if (updateExamFormKey.currentState!
                                           .validate()) {
                                         updateExam(widget.id, type, sub, time,
                                             deltype, hour, min, examlink);
@@ -298,14 +298,14 @@ class _EditExamState extends State<EditExam> {
                                         }
                                       }
                                     },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Theme.of(context)
+                                            .secondaryHeaderColor),
                                     child: Text(
                                       'Update',
                                       style: TextStyle(
                                           fontSize: 18.0, color: Colors.white),
                                     ),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Theme.of(context)
-                                            .secondaryHeaderColor),
                                   ),
                                 ],
                               )
